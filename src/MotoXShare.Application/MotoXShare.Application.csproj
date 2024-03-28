@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Interactor\Interface\" />
+    <Folder Include="Interactor\Base\" />
+    <Folder Include="Adapter\" />
+    <Folder Include="UseCase\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MotoXShare.Data\MotoXShare.Data.csproj" />
+    <ProjectReference Include="..\MotoXShare.Domain\MotoXShare.Domain.csproj" />
+    <ProjectReference Include="..\MotoXShare.Infraestructure\MotoXShare.Infraestructure.csproj" />
+  </ItemGroup>
+
+</Project>

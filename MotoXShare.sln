@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{04766FA1-60EF-4FF8-BEFE-94B39B9C68FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotoXShare.Application", "src\MotoXShare.Application\MotoXShare.Application.csproj", "{145B418E-06BC-46BA-8829-50E5D8CFFDFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotoXShare.Data", "src\MotoXShare.Data\MotoXShare.Data.csproj", "{DAD0307B-A73F-4DB6-931C-F5A7A21BB59C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotoXShare.Infraestructure", "src\MotoXShare.Infraestructure\MotoXShare.Infraestructure.csproj", "{5F77D41F-4A55-40B4-AB40-F426DD788CCF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotoXShare.Domain", "src\MotoXShare.Domain\MotoXShare.Domain.csproj", "{E532F16F-4403-4664-9D9C-895B5CBE05BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotoXShare.API", "src\MotoXShare.API\MotoXShare.API.csproj", "{77E9F565-8AAD-4E5A-B841-EADDB0C4E186}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{145B418E-06BC-46BA-8829-50E5D8CFFDFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{145B418E-06BC-46BA-8829-50E5D8CFFDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{145B418E-06BC-46BA-8829-50E5D8CFFDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{145B418E-06BC-46BA-8829-50E5D8CFFDFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAD0307B-A73F-4DB6-931C-F5A7A21BB59C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAD0307B-A73F-4DB6-931C-F5A7A21BB59C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAD0307B-A73F-4DB6-931C-F5A7A21BB59C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAD0307B-A73F-4DB6-931C-F5A7A21BB59C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F77D41F-4A55-40B4-AB40-F426DD788CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F77D41F-4A55-40B4-AB40-F426DD788CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F77D41F-4A55-40B4-AB40-F426DD788CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F77D41F-4A55-40B4-AB40-F426DD788CCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E532F16F-4403-4664-9D9C-895B5CBE05BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E532F16F-4403-4664-9D9C-895B5CBE05BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E532F16F-4403-4664-9D9C-895B5CBE05BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E532F16F-4403-4664-9D9C-895B5CBE05BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E9F565-8AAD-4E5A-B841-EADDB0C4E186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E9F565-8AAD-4E5A-B841-EADDB0C4E186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E9F565-8AAD-4E5A-B841-EADDB0C4E186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E9F565-8AAD-4E5A-B841-EADDB0C4E186}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{145B418E-06BC-46BA-8829-50E5D8CFFDFF} = {04766FA1-60EF-4FF8-BEFE-94B39B9C68FA}
+		{DAD0307B-A73F-4DB6-931C-F5A7A21BB59C} = {04766FA1-60EF-4FF8-BEFE-94B39B9C68FA}
+		{5F77D41F-4A55-40B4-AB40-F426DD788CCF} = {04766FA1-60EF-4FF8-BEFE-94B39B9C68FA}
+		{E532F16F-4403-4664-9D9C-895B5CBE05BB} = {04766FA1-60EF-4FF8-BEFE-94B39B9C68FA}
+		{77E9F565-8AAD-4E5A-B841-EADDB0C4E186} = {04766FA1-60EF-4FF8-BEFE-94B39B9C68FA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {01827DD6-90E7-4FAD-9EFA-7D929ED6FB54}
+	EndGlobalSection
+EndGlobal
