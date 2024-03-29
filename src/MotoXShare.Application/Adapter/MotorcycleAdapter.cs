@@ -12,4 +12,13 @@ public class MotorcycleAdapter
             Model = param.Model,
             Plate = param.Plate
         };
+
+    public static GetMotorcycleResponseDto FromDomain(Motorcycle param) =>
+        new()
+        {
+            Id = param.Id,
+            Year = param.Year,
+            Model = param.Model,
+            Plate = param.Plate
+        };
 }

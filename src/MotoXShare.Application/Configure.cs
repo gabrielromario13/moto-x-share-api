@@ -26,6 +26,7 @@ public static class Configure
         services.AddScoped<ISaveUserInteractor, SaveUserInteractor>();
 
         services.AddScoped<ISaveMotorcycleInteractor, SaveMotorcycleInteractor>();
+        services.AddScoped<IGetMotorcyclesInteractor, GetMotorcyclesInteractor>();
 
         return services;
     }
@@ -35,6 +36,7 @@ public static class Configure
         services.AddScoped<SaveUserUseCase>();
 
         services.AddScoped<SaveMotorcycleUseCase>();
+        services.AddScoped<GetMotorcyclesUseCase>();
 
         return services;
     }
@@ -42,7 +44,6 @@ public static class Configure
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();
-
         services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 
         return services;
