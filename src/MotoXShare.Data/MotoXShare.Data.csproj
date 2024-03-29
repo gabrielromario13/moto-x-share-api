@@ -3,16 +3,16 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\Base\" />
-    <Folder Include="Repository\Interface\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MotoXShare.Domain\MotoXShare.Domain.csproj" />
+    <ProjectReference Include="..\MotoXShare.Infraestructure\MotoXShare.Infraestructure.csproj" />
   </ItemGroup>
 
 </Project>

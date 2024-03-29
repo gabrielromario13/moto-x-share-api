@@ -7,14 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interactor\Interface\" />
-    <Folder Include="Interactor\Base\" />
-    <Folder Include="Adapter\" />
-    <Folder Include="UseCase\" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="8.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MotoXShare.Data\MotoXShare.Data.csproj" />
     <ProjectReference Include="..\MotoXShare.Domain\MotoXShare.Domain.csproj" />
     <ProjectReference Include="..\MotoXShare.Infraestructure\MotoXShare.Infraestructure.csproj" />
   </ItemGroup>

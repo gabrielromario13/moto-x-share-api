@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MotoXShare.Application\MotoXShare.Application.csproj" />
     <ProjectReference Include="..\MotoXShare.Domain\MotoXShare.Domain.csproj" />
   </ItemGroup>

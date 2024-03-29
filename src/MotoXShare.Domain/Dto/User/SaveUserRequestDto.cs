@@ -1,8 +1,6 @@
-﻿using MotoXShare.Domain.Base;
+﻿namespace MotoXShare.Domain.Dto.User;
 
-namespace MotoXShare.Domain.Model;
-
-public class User(Guid id) : BaseEntity(id)
+public class SaveUserRequestDto
 {
     public string Name { get; set; }
     public DateTime BirthDate { get; set; }
