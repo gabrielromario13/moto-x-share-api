@@ -1,5 +1,4 @@
-﻿using MotoXShare.Domain.Base;
-using MotoXShare.Domain.Enums;
+﻿using MotoXShare.Domain.Enums;
 
 namespace MotoXShare.Domain.Model;
 
@@ -11,5 +10,5 @@ public class Rental(Guid id) : BaseEntity(id)
     public DateTime StartDate { get; set; } = DateTime.Now.AddDays(1); //TODO: Check if this is the best way to do it!
     public DateTime EndDatePrevision { get; set; }
     public DateTime? EndDate { get; set; }
-    public bool Active { get; set; } //TODO: Check if this property is really needed!
+    public bool Active { get; set; } //TODO: Check if this property is really necessary!
 }

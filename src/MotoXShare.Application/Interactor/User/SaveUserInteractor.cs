@@ -1,5 +1,4 @@
-﻿using MotoXShare.Application.Interactor.Base;
-using MotoXShare.Application.Interactor.Interface;
+﻿using MotoXShare.Application.Interactor.Interface;
 using MotoXShare.Application.UseCase.User;
 using MotoXShare.Domain.Dto.User;
 using MotoXShare.Infraestructure.UnitOfWork;
@@ -10,8 +9,10 @@ public class SaveUserInteractor : InteractorAsync<Guid, SaveUserRequestDto>, ISa
 {
     private readonly SaveUserUseCase _saveUserUseCase;
 
-    public SaveUserInteractor(EntityFrameworkUnitOfWorkAsync unitOfWork,
-                              SaveUserUseCase saveUserUseCase) : base(unitOfWork)
+    public SaveUserInteractor(
+        EntityFrameworkUnitOfWorkAsync unitOfWork,
+        SaveUserUseCase saveUserUseCase
+    ) : base(unitOfWork)
     {
         _saveUserUseCase = saveUserUseCase;
     }

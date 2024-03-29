@@ -1,46 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using MotoXShare.Application.Interactor.Interface;
+using MotoXShare.Application.Interactor.Motorcycle;
 using MotoXShare.Application.Interactor.User;
+using MotoXShare.Application.UseCase.Motorcycle;
 using MotoXShare.Application.UseCase.User;
-using MotoXShare.Domain.Exceptions;
-using MotoXShare.Infraestructure.Context;
 using MotoXShare.Infraestructure.Data.Repository;
 using MotoXShare.Infraestructure.Data.Repository.Interface;
-using MotoXShare.Infraestructure.UnitOfWork;
 
 namespace MotoXShare.Application;
 
 public static class Configure
 {
-    public static IServiceCollection ConfigureCommon(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection ConfigureApplication(this IServiceCollection services)
     {
         services
-            .ConfigurePostgreSQL(configuration)
             .AddInteractors()
             .AddUseCase()
             .AddRepositories();
-
-        return services;
-    }
-
-    public static IServiceCollection ConfigurePostgreSQL(this IServiceCollection services, IConfiguration configuration)
-    {
-        var connectionString = configuration["DefaultConnection:ConnectionString"];
-
-        if (string.IsNullOrWhiteSpace(connectionString))
-            throw new CustomException("Connection string cannot be empty.");
-
-        services.AddScoped<EntityFrameworkUnitOfWorkAsync>();
-
-        services.AddDbContext<ApplicationContext>(options =>
-        {
-            options.UseNpgsql(connectionString);
-        });
-
-        services.AddHealthChecks()
-                .AddDbContextCheck<ApplicationContext>("postgresql");
 
         return services;
     }
@@ -49,6 +25,8 @@ public static class Configure
     {
         services.AddScoped<ISaveUserInteractor, SaveUserInteractor>();
 
+        services.AddScoped<ISaveMotorcycleInteractor, SaveMotorcycleInteractor>();
+
         return services;
     }
 
@@ -56,12 +34,16 @@ public static class Configure
     {
         services.AddScoped<SaveUserUseCase>();
 
+        services.AddScoped<SaveMotorcycleUseCase>();
+
         return services;
     }
 
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
 
         return services;
     }

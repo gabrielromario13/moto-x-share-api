@@ -1,4 +1,5 @@
 using MotoXShare.Application;
+using MotoXShare.Infraestructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.ConfigureCommon(builder.Configuration);
+builder.Services.ConfigureApplication();
+builder.Services.ConfigureInfraestructure(builder.Configuration);
 builder.Services.Configure<RouteOptions>(options =>
 {
     options.LowercaseUrls = true;

@@ -2,7 +2,7 @@
 
 namespace MotoXShare.Domain.Model;
 
-public class DeliveryDriver(Guid id) : User(id)
+public class DeliveryRider(Guid id) : User(id)
 {
     public string CNPJ { get; set; } //TODO: Validate, it must be unique.
 

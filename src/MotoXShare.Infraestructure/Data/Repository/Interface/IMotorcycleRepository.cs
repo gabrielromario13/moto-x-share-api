@@ -2,6 +2,6 @@
 
 namespace MotoXShare.Infraestructure.Data.Repository.Interface;
 
-public interface IUserRepository : IRepositoryAsync<User>
+public interface IMotorcycleRepository : IRepositoryAsync<Motorcycle>
 {
 }

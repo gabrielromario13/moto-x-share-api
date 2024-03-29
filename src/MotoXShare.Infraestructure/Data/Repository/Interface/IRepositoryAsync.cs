@@ -1,7 +1,7 @@
-﻿using MotoXShare.Domain.Base;
+﻿using MotoXShare.Domain.Model;
 using System.Linq.Expressions;
 
-namespace MotoXShare.Infraestructure.Data.Repository.Base;
+namespace MotoXShare.Infraestructure.Data.Repository.Interface;
 
 public interface IRepositoryAsync<T> where T : BaseEntity
 {

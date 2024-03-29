@@ -1,6 +1,6 @@
-﻿namespace MotoXShare.Domain.Model;
+﻿namespace MotoXShare.Domain.Dto.Motorcycle;
 
-public class Motorcycle(Guid id) : BaseEntity(id)
+public class GetMotorcycleResponseDto : BaseResponseDto
 {
     public short Year { get; set; }
     public string Model { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace MotoXShare.Domain.Base;
+﻿namespace MotoXShare.Domain.Model;
 
 public abstract class BaseEntity
 {
@@ -16,7 +16,7 @@ public abstract class BaseEntity
 
     private void SetId(Guid id)
     {
-        Id = (id == Guid.Empty)
+        Id = id == Guid.Empty
             ? Guid.NewGuid()
             : id;
     }

@@ -1,6 +1,7 @@
-﻿using MotoXShare.Infraestructure.UnitOfWork.Base;
+﻿using MotoXShare.Application.Interactor.Base;
+using MotoXShare.Infraestructure.UnitOfWork.Base;
 
-namespace MotoXShare.Application.Interactor.Base;
+namespace MotoXShare.Application.Interactor;
 
 public abstract class InteractorAsync<TResult, TParam> : IInteractorAsync<TResult, TParam>
 {
