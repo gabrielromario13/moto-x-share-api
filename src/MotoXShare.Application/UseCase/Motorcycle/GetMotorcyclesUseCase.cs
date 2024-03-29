@@ -13,9 +13,9 @@ public class GetMotorcyclesUseCase(IMotorcycleRepository repository)
         Expression<Func<Domain.Model.Motorcycle, bool>> param = null
     )
     {
-        var result = await _repository.Get(param);
+        var motorcyclesDb = await _repository.Get(param);
         
-        var motorcycles = result.Select(MotorcycleAdapter.FromDomain);
+        var motorcycles = motorcyclesDb.Select(MotorcycleAdapter.FromDomain);
 
         if (!motorcycles.Any())
             return Enumerable.Empty<GetMotorcycleResponseDto>();

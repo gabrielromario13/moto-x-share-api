@@ -27,6 +27,7 @@ public static class Configure
 
         services.AddScoped<ISaveMotorcycleInteractor, SaveMotorcycleInteractor>();
         services.AddScoped<IGetMotorcyclesInteractor, GetMotorcyclesInteractor>();
+        services.AddScoped<IUpdateMotorcyclePlateInteractor, UpdateMotorcyclePlateInteractor>();
 
         return services;
     }
@@ -37,6 +38,7 @@ public static class Configure
 
         services.AddScoped<SaveMotorcycleUseCase>();
         services.AddScoped<GetMotorcyclesUseCase>();
+        services.AddScoped<UpdateMotorcyclePlateUseCase>();
 
         return services;
     }
