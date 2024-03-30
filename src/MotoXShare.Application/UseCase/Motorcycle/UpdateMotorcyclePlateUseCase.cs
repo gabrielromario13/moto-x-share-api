@@ -12,7 +12,7 @@ public class UpdateMotorcyclePlateUseCase(IMotorcycleRepository repository)
     {
         var motorcycle = await _repository.GetSingle(x => x.Id == param.Id);
 
-        if (motorcycle is null) 
+        if (motorcycle is null)
             return default;
 
         motorcycle.SetPlate(param.Plate);

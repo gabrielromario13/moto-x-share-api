@@ -14,7 +14,7 @@ public class GetMotorcyclesUseCase(IMotorcycleRepository repository)
     )
     {
         var motorcyclesDb = await _repository.Get(param);
-        
+
         var motorcycles = motorcyclesDb.Select(MotorcycleAdapter.FromDomain);
 
         if (!motorcycles.Any())

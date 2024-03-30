@@ -23,7 +23,7 @@ public class DeleteMotorcycleUseCase(IRentalRepository rentalRepository, IMotorc
             //TODO: Add notification here. ("Moto com locação ativa. Não foi possível realizar exclusão!")
             return true;
         }
-        
+
         await _repository.Remove(motorcycle);
 
         return true;

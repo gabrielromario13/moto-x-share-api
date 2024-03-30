@@ -10,7 +10,7 @@ namespace MotoXShare.API.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class MotorcyclesController(
-    ISaveMotorcycleInteractor saveMotorcycleInteractor, 
+    ISaveMotorcycleInteractor saveMotorcycleInteractor,
     IGetMotorcyclesInteractor getMotorcyclesInteractor,
     IUpdateMotorcyclePlateInteractor updateMotorcyclePlateInteractor,
     IDeleteMotorcycleInteractor deleteMotorcycleInteractor
