@@ -5,7 +5,8 @@ using System.Linq.Expressions;
 
 namespace MotoXShare.Infraestructure.Data.Repository;
 
-public class RepositoryAsync<T> : IRepositoryAsync<T> where T : BaseEntity
+public class RepositoryAsync<T> 
+    : IRepositoryAsync<T> where T : BaseEntity
 {
     protected readonly DbContext _context;
     protected readonly DbSet<T> _dbSet;

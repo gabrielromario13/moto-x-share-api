@@ -4,6 +4,7 @@ using MotoXShare.Infraestructure.Data.Repository.Interface;
 
 namespace MotoXShare.Infraestructure.Data.Repository;
 
-public class UserRepository(ApplicationContext context) : RepositoryAsync<User>(context), IUserRepository
+public class UserRepository(ApplicationContext context) 
+    : RepositoryAsync<User>(context), IUserRepository
 {
 }

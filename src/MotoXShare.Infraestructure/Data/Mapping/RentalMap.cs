@@ -16,7 +16,7 @@ public class RentalMap : EntityBaseConfiguration<Rental>
         builder.Property(b => b.StartDate).HasDefaultValue(DateTime.Now.AddDays(1)).IsRequired();
         builder.Property(b => b.EndDatePrevision).IsRequired();
         builder.Property(b => b.EndDate).IsRequired();
-        builder.Property(b => b.Active).HasDefaultValue(true);
+        builder.Property(b => b.EndDate).IsRequired();
 
         builder
             .HasOne(x => x.DeliveryRider)
