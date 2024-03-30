@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MotoXShare.Application.Interactor.Interface;
+using MotoXShare.Application.Interactor.Interface.User;
 using MotoXShare.Domain.Dto.User;
 
 namespace MotoXShare.API.Controllers;

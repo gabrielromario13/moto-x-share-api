@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MotoXShare.Application.Adapter;
 using MotoXShare.Application.Interactor.Interface;
-using MotoXShare.Application.Interactor.Motorcycle;
+using MotoXShare.Application.Interactor.Interface.Motorcycle;
 using MotoXShare.Domain.Dto.Motorcycle;
-using System.Net;
 
 namespace MotoXShare.API.Controllers;
 
@@ -13,28 +12,27 @@ namespace MotoXShare.API.Controllers;
 public class MotorcyclesController(
     ISaveMotorcycleInteractor saveMotorcycleInteractor, 
     IGetMotorcyclesInteractor getMotorcyclesInteractor,
-    IUpdateMotorcyclePlateInteractor updateMotorcyclePlateInteractor
+    IUpdateMotorcyclePlateInteractor updateMotorcyclePlateInteractor,
+    IDeleteMotorcycleInteractor deleteMotorcycleInteractor
 ) : ControllerBase
 {
     private readonly ISaveMotorcycleInteractor _saveMotorcycleInteractor = saveMotorcycleInteractor;
     private readonly IGetMotorcyclesInteractor _getMotorcyclesInteractor = getMotorcyclesInteractor;
     private readonly IUpdateMotorcyclePlateInteractor _updateMotorcyclePlateInteractor = updateMotorcyclePlateInteractor;
+    private readonly IDeleteMotorcycleInteractor _deleteMotorcycleInteractor = deleteMotorcycleInteractor;
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> Post([FromBody] SaveMotorcycleRequestDto param)
+    public async Task<ActionResult> Post(SaveMotorcycleRequestDto param)
     {
         var result = await _saveMotorcycleInteractor.Execute(param);
 
-        if (result == Guid.Empty)
-            return BadRequest();
-
-        return Created($"{Request.Path}/{result}", new { });
+        return Created($"{Request.Path}/{result}", string.Empty);
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<GetMotorcycleResponseDto>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IEnumerable<GetMotorcycleResponseDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get([FromQuery] GetMotorcycleRequestDto param)
     {
         var result = await _getMotorcyclesInteractor.Execute(param);
@@ -43,17 +41,30 @@ public class MotorcyclesController(
     }
 
     [HttpPatch("{id}")]
-    [ProducesResponseType(typeof(GetMotorcycleResponseDto), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(GetMotorcycleResponseDto), StatusCodes.Status200OK)] //TODO: This is right or should I use NoContent instead?
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdatePlate(Guid id, [FromBody] string plate)
     {
-        if (plate.IsNullOrEmpty())
+        if (plate.IsNullOrEmpty()) //TODO: Use FluentValidation instead of this!
             return BadRequest();
 
-        var result = await _updateMotorcyclePlateInteractor.Execute(new() { Id = id, Plate = plate });
+        var result = await _updateMotorcyclePlateInteractor.Execute(
+            MotorcycleAdapter.ToUpdateMotorcyclePlateRequestDto(id, plate)
+        );
 
         return result is null
             ? NotFound()
             : Ok(result);
+    }
+
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var result = await _deleteMotorcycleInteractor.Execute(id);
+
+        return result ? Ok() : NotFound();
     }
 }

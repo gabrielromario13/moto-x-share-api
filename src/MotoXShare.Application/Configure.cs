@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MotoXShare.Application.Interactor.Interface;
+using MotoXShare.Application.Interactor.Interface.Motorcycle;
+using MotoXShare.Application.Interactor.Interface.User;
 using MotoXShare.Application.Interactor.Motorcycle;
 using MotoXShare.Application.Interactor.User;
 using MotoXShare.Application.UseCase.Motorcycle;
@@ -28,6 +30,7 @@ public static class Configure
         services.AddScoped<ISaveMotorcycleInteractor, SaveMotorcycleInteractor>();
         services.AddScoped<IGetMotorcyclesInteractor, GetMotorcyclesInteractor>();
         services.AddScoped<IUpdateMotorcyclePlateInteractor, UpdateMotorcyclePlateInteractor>();
+        services.AddScoped<IDeleteMotorcycleInteractor, DeleteMotorcycleInteractor>();
 
         return services;
     }
@@ -39,6 +42,7 @@ public static class Configure
         services.AddScoped<SaveMotorcycleUseCase>();
         services.AddScoped<GetMotorcyclesUseCase>();
         services.AddScoped<UpdateMotorcyclePlateUseCase>();
+        services.AddScoped<DeleteMotorcycleUseCase>();
 
         return services;
     }
@@ -47,6 +51,7 @@ public static class Configure
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
+        services.AddScoped<IRentalRepository, RentalRepository>();
 
         return services;
     }

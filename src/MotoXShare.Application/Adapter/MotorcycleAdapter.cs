@@ -21,4 +21,11 @@ public class MotorcycleAdapter
             Model = param.Model,
             Plate = param.Plate
         };
+
+    public static UpdateMotorcyclePlateRequestDto ToUpdateMotorcyclePlateRequestDto(Guid id, string plate) =>
+        new()
+        {
+            Id = id,
+            Plate = plate
+        };
 }

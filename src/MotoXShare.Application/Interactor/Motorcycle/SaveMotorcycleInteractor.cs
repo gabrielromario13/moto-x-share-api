@@ -1,4 +1,4 @@
-﻿using MotoXShare.Application.Interactor.Interface;
+﻿using MotoXShare.Application.Interactor.Interface.Motorcycle;
 using MotoXShare.Application.UseCase.Motorcycle;
 using MotoXShare.Domain.Dto.Motorcycle;
 using MotoXShare.Infraestructure.UnitOfWork;

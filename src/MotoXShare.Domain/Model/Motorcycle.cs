@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace MotoXShare.Domain.Model;
+﻿namespace MotoXShare.Domain.Model;
 
 public class Motorcycle(Guid id) : BaseEntity(id)
 {
