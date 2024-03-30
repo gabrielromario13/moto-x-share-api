@@ -5,17 +5,12 @@ using MotoXShare.Infraestructure.UnitOfWork;
 
 namespace MotoXShare.Application.Interactor.Motorcycle;
 
-public class SaveMotorcycleInteractor : InteractorAsync<Guid, SaveMotorcycleRequestDto>, ISaveMotorcycleInteractor
+public class SaveMotorcycleInteractor(
+    EntityFrameworkUnitOfWorkAsync unitOfWork,
+    SaveMotorcycleUseCase saveMotorcycleUseCase
+) : InteractorAsync<Guid, SaveMotorcycleRequestDto>(unitOfWork), ISaveMotorcycleInteractor
 {
-    private readonly SaveMotorcycleUseCase _saveMotorcycleUseCase;
-
-    public SaveMotorcycleInteractor(
-        EntityFrameworkUnitOfWorkAsync unitOfWork,
-        SaveMotorcycleUseCase saveMotorcycleUseCase
-    ) : base(unitOfWork)
-    {
-        _saveMotorcycleUseCase = saveMotorcycleUseCase;
-    }
+    private readonly SaveMotorcycleUseCase _saveMotorcycleUseCase = saveMotorcycleUseCase;
 
     protected override async Task<Guid> Action(SaveMotorcycleRequestDto param) =>
         await _saveMotorcycleUseCase.Action(param);

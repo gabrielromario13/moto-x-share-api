@@ -7,18 +7,12 @@ using System.Linq.Expressions;
 
 namespace MotoXShare.Application.Interactor.Motorcycle;
 
-public class GetMotorcyclesInteractor
-    : InteractorAsync<IEnumerable<GetMotorcycleResponseDto>, GetMotorcycleRequestDto>, IGetMotorcyclesInteractor
+public class GetMotorcyclesInteractor(
+    EntityFrameworkUnitOfWorkAsync unitOfWork,
+    GetMotorcyclesUseCase getMotorcyclesUseCase
+) : InteractorAsync<IEnumerable<GetMotorcycleResponseDto>, GetMotorcycleRequestDto>(unitOfWork), IGetMotorcyclesInteractor
 {
-    private readonly GetMotorcyclesUseCase _getMotorcyclesUseCase;
-
-    public GetMotorcyclesInteractor(
-        EntityFrameworkUnitOfWorkAsync unitOfWork,
-        GetMotorcyclesUseCase getMotorcyclesUseCase
-    ) : base(unitOfWork)
-    {
-        _getMotorcyclesUseCase = getMotorcyclesUseCase;
-    }
+    private readonly GetMotorcyclesUseCase _getMotorcyclesUseCase = getMotorcyclesUseCase;
 
     protected override async Task<IEnumerable<GetMotorcycleResponseDto>> Action(GetMotorcycleRequestDto param)
     {

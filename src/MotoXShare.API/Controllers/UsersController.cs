@@ -6,24 +6,16 @@ namespace MotoXShare.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UsersController : ControllerBase
+public class UsersController(ISaveUserInteractor saveUserInteractor) : ControllerBase
 {
-    private readonly ISaveUserInteractor _saveUserInteractor;
-
-    public UsersController(ISaveUserInteractor saveUserInteractor)
-    {
-        _saveUserInteractor = saveUserInteractor;
-    }
+    private readonly ISaveUserInteractor _saveUserInteractor = saveUserInteractor;
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> Post([FromBody] SaveUserRequestDto param)
+    public async Task<IActionResult> Create([FromBody] SaveUserRequestDto param)
     {
         var result = await _saveUserInteractor.Execute(param);
-
-        if (result == Guid.Empty)
-            return BadRequest();
 
         return Created($"{Request.Path}/{result}", new { });
     }

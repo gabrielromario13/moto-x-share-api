@@ -5,7 +5,7 @@ namespace MotoXShare.Domain.Model;
 public class Rental(Guid id) : BaseEntity(id)
 {
     //Won't be possible to complete the rent if there's no motorcycles available!
-    //Only delivery drivers qualified in category A can make a rental!
+    //Only delivery riders qualified in category A can make a rental!
     public Guid DeliveryRiderId { get; set; }
     public Guid MotorcycleId { get; set; }
     public RentalPlans Plan { get; set; }
