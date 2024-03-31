@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using MotoXShare.Application.Adapter;
 using MotoXShare.Application.Interactor.Interface;
 using MotoXShare.Application.Interactor.Interface.Motorcycle;
@@ -12,13 +11,13 @@ namespace MotoXShare.API.Controllers;
 public class MotorcyclesController(
     ISaveMotorcycleInteractor saveMotorcycleInteractor,
     IGetMotorcyclesInteractor getMotorcyclesInteractor,
-    IUpdateMotorcyclePlateInteractor updateMotorcyclePlateInteractor,
+    IUpdateMotorcycleInteractor updateMotorcycleInteractor,
     IDeleteMotorcycleInteractor deleteMotorcycleInteractor
 ) : ControllerBase
 {
     private readonly ISaveMotorcycleInteractor _saveMotorcycleInteractor = saveMotorcycleInteractor;
     private readonly IGetMotorcyclesInteractor _getMotorcyclesInteractor = getMotorcyclesInteractor;
-    private readonly IUpdateMotorcyclePlateInteractor _updateMotorcyclePlateInteractor = updateMotorcyclePlateInteractor;
+    private readonly IUpdateMotorcycleInteractor _updateMotorcycleInteractor = updateMotorcycleInteractor;
     private readonly IDeleteMotorcycleInteractor _deleteMotorcycleInteractor = deleteMotorcycleInteractor;
 
     [HttpPost]
@@ -41,21 +40,14 @@ public class MotorcyclesController(
     }
 
     [HttpPatch("{id}")]
-    [ProducesResponseType(typeof(GetMotorcycleResponseDto), StatusCodes.Status200OK)] //TODO: This is right or should I use NoContent instead?
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdatePlate(Guid id, [FromBody] string plate)
     {
-        if (plate.IsNullOrEmpty()) //TODO: Use FluentValidation instead of this!
-            return BadRequest();
+        var result = await _updateMotorcycleInteractor.Execute(MotorcycleAdapter.ToUpdateDto(id, plate));
 
-        var result = await _updateMotorcyclePlateInteractor.Execute(
-            MotorcycleAdapter.ToUpdateMotorcyclePlateRequestDto(id, plate)
-        );
-
-        return result is null
-            ? NotFound()
-            : Ok(result);
+        return result ? NoContent() : NotFound();
     }
 
     [HttpDelete]

@@ -1,6 +1,6 @@
 ﻿namespace MotoXShare.Domain.Enums;
 
-public enum CNHTypes
+public enum CnhTypes
 {
     A = 0,
     B = 1,

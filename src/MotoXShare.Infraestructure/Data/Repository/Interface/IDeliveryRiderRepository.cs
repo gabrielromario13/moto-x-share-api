@@ -6,4 +6,5 @@ public interface IDeliveryRiderRepository : IRepositoryAsync<DeliveryRider>
 {
     Task<bool> CheckIfCnpjExists(string cnpj);
     Task<bool> CheckIfCnhExists(string cnh);
+    Task<bool> CheckIfCnhTypeIsValid(Guid id);
 }

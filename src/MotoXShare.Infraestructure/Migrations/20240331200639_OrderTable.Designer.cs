@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MotoXShare.Infraestructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240330043657_ChangedActiveToMotorcycle")]
-    partial class ChangedActiveToMotorcycle
+    [Migration("20240331200639_OrderTable")]
+    partial class OrderTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,14 +63,14 @@ namespace MotoXShare.Infraestructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("Active")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Model")
                         .HasColumnType("text");
 
                     b.Property<string>("Plate")
                         .HasColumnType("text");
+
+                    b.Property<bool>("Rented")
+                        .HasColumnType("boolean");
 
                     b.Property<short>("Year")
                         .HasColumnType("smallint");
@@ -78,6 +78,26 @@ namespace MotoXShare.Infraestructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Motorcycle");
+                });
+
+            modelBuilder.Entity("MotoXShare.Domain.Model.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("DeliveryPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("MotoXShare.Domain.Model.Rental", b =>
@@ -89,7 +109,7 @@ namespace MotoXShare.Infraestructure.Migrations
                     b.Property<Guid>("DeliveryRiderId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("EndDatePrevision")
@@ -98,17 +118,22 @@ namespace MotoXShare.Infraestructure.Migrations
                     b.Property<Guid>("MotorcycleId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Plan")
+                    b.Property<int>("PlanType")
                         .HasColumnType("integer");
+
+                    b.Property<decimal>("RentalPrice")
+                        .HasColumnType("numeric");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliveryRiderId");
+                    b.HasIndex("DeliveryRiderId")
+                        .IsUnique();
 
-                    b.HasIndex("MotorcycleId");
+                    b.HasIndex("MotorcycleId")
+                        .IsUnique();
 
                     b.ToTable("Rental");
                 });
@@ -136,20 +161,30 @@ namespace MotoXShare.Infraestructure.Migrations
             modelBuilder.Entity("MotoXShare.Domain.Model.Rental", b =>
                 {
                     b.HasOne("MotoXShare.Domain.Model.DeliveryRider", "DeliveryRider")
-                        .WithMany()
-                        .HasForeignKey("DeliveryRiderId")
+                        .WithOne("Rental")
+                        .HasForeignKey("MotoXShare.Domain.Model.Rental", "DeliveryRiderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MotoXShare.Domain.Model.Motorcycle", "Motorcycle")
-                        .WithMany()
-                        .HasForeignKey("MotorcycleId")
+                        .WithOne("Rental")
+                        .HasForeignKey("MotoXShare.Domain.Model.Rental", "MotorcycleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("DeliveryRider");
 
                     b.Navigation("Motorcycle");
+                });
+
+            modelBuilder.Entity("MotoXShare.Domain.Model.DeliveryRider", b =>
+                {
+                    b.Navigation("Rental");
+                });
+
+            modelBuilder.Entity("MotoXShare.Domain.Model.Motorcycle", b =>
+                {
+                    b.Navigation("Rental");
                 });
 #pragma warning restore 612, 618
         }

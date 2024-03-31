@@ -24,4 +24,8 @@
     <ProjectReference Include="..\MotoXShare.Domain\MotoXShare.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

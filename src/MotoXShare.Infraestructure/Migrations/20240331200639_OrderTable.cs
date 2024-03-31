@@ -1,27 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace MotoXShare.Infraestructure.Migrations
 {
     /// <inheritdoc />
-    public partial class MotorcycleTable : Migration
+    public partial class OrderTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Motorcycle",
+                name: "Order",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Year = table.Column<short>(type: "smallint", nullable: false),
-                    Model = table.Column<string>(type: "text", nullable: true),
-                    Plate = table.Column<string>(type: "text", nullable: true)
+                    DeliveryPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Motorcycle", x => x.Id);
+                    table.PrimaryKey("PK_Order", x => x.Id);
                 });
         }
 
@@ -29,7 +30,7 @@ namespace MotoXShare.Infraestructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Motorcycle");
+                name: "Order");
         }
     }
 }

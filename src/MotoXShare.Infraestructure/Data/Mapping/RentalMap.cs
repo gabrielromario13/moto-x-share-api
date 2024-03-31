@@ -12,7 +12,7 @@ public class RentalMap : EntityBaseConfiguration<Rental>
     {
         builder.ToTable("Rental");
 
-        builder.Property(b => b.Plan).HasConversion(typeof(RentalPlans)).IsRequired();
+        builder.Property(b => b.PlanType).HasConversion(typeof(RentalPlanTypes)).IsRequired();
         builder.Property(b => b.StartDate).HasDefaultValue(DateTime.Now.AddDays(1)).IsRequired();
         builder.Property(b => b.EndDatePrevision).IsRequired();
         builder.Property(b => b.EndDate).IsRequired();

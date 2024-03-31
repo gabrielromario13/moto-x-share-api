@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace MotoXShare.Infraestructure.Migrations
 {
     /// <inheritdoc />
-    public partial class DeliveryRiderAndRentalTable : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,17 +30,46 @@ namespace MotoXShare.Infraestructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Motorcycle",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Year = table.Column<short>(type: "smallint", nullable: false),
+                    Model = table.Column<string>(type: "text", nullable: true),
+                    Plate = table.Column<string>(type: "text", nullable: true),
+                    Rented = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Motorcycle", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsAdmin = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rental",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    DeliveryRiderId = table.Column<Guid>(type: "uuid", nullable: false),
-                    MotorcycleId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Plan = table.Column<int>(type: "integer", nullable: false),
+                    PlanType = table.Column<int>(type: "integer", nullable: false),
+                    RentalPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndDatePrevision = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Active = table.Column<bool>(type: "boolean", nullable: false)
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DeliveryRiderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    MotorcycleId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,12 +91,14 @@ namespace MotoXShare.Infraestructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Rental_DeliveryRiderId",
                 table: "Rental",
-                column: "DeliveryRiderId");
+                column: "DeliveryRiderId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rental_MotorcycleId",
                 table: "Rental",
-                column: "MotorcycleId");
+                column: "MotorcycleId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -76,7 +108,13 @@ namespace MotoXShare.Infraestructure.Migrations
                 name: "Rental");
 
             migrationBuilder.DropTable(
+                name: "User");
+
+            migrationBuilder.DropTable(
                 name: "DeliveryRider");
+
+            migrationBuilder.DropTable(
+                name: "Motorcycle");
         }
     }
 }

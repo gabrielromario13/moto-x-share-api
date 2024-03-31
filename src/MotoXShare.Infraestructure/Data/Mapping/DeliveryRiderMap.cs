@@ -14,7 +14,7 @@ public class DeliveryRiderMap : EntityBaseConfiguration<DeliveryRider>
 
         builder.Property(b => b.CNPJ).IsRequired();
         builder.Property(b => b.CNH).IsRequired(true);
-        builder.Property(b => b.CNHType).HasConversion<CNHTypes>().IsRequired();
+        builder.Property(b => b.CNHType).HasConversion<CnhTypes>().IsRequired();
         builder.Property(b => b.CNHImage).IsRequired();
     }
 }

@@ -8,6 +8,6 @@ public class SaveDeliveryRiderRequestDto
     public string CNPJ { get; set; }
     public DateTime BirthDate { get; set; }
     public string CNH { get; set; }
-    public CNHTypes CNHType { get; set; }
+    public CnhTypes CNHType { get; set; }
     public string CNHImage { get; set; }
 }
