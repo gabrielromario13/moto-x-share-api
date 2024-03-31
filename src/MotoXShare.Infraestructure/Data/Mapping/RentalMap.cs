@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MotoXShare.Domain.Enums;
 using MotoXShare.Domain.Model;
 using MotoXShare.Infraestructure.Data.Mapping.Base;
 
@@ -12,20 +11,10 @@ public class RentalMap : EntityBaseConfiguration<Rental>
     {
         builder.ToTable("Rental");
 
-        builder.Property(b => b.PlanType).HasConversion(typeof(RentalPlanTypes)).IsRequired();
-        builder.Property(b => b.StartDate).HasDefaultValue(DateTime.Now.AddDays(1)).IsRequired();
-        builder.Property(b => b.EndDatePrevision).IsRequired();
+        builder.Property(b => b.PlanType).IsRequired();
+        builder.Property(b => b.StartDate).IsRequired();
+        builder.Property(b => b.ExpectedEndDate).IsRequired();
         builder.Property(b => b.EndDate).IsRequired();
         builder.Property(b => b.EndDate).IsRequired();
-
-        builder
-            .HasOne(x => x.DeliveryRider)
-            .WithOne()
-            .IsRequired();
-
-        builder
-            .HasOne(x => x.Motorcycle)
-            .WithOne()
-            .IsRequired();
     }
 }

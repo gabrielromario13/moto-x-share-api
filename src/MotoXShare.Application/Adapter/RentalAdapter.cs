@@ -13,7 +13,7 @@ public class RentalAdapter
             RentalPrice = Rental.CalculateRentalPrice(param.EndDatePrevision, param.EndDate, param.PlanType),
             PlanType = param.PlanType,
             StartDate = param.StartDate,
-            EndDatePrevision = param.EndDatePrevision,
+            ExpectedEndDate = param.EndDatePrevision,
             EndDate = param.EndDate
         };
 

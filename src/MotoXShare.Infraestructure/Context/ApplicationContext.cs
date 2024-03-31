@@ -15,7 +15,7 @@ public class ApplicationContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("User ID=postgres;Password=Gc$#@130201---;Host=localhost;Port=5432;Database=MotoXShareDB;Pooling=true;");
+        optionsBuilder.UseNpgsql("User ID=postgres;Password=Gc$#@130201---;Host=localhost;Port=5432;Database=MotoXShareDB;Pooling=true;Include Error Detail=true;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

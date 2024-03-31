@@ -2,6 +2,6 @@
 
 namespace MotoXShare.Infraestructure.Data.Repository.Interface;
 
-public interface IOrderRepository :  IRepositoryAsync<Order>
+public interface IOrderRepository : IRepositoryAsync<Order>
 {
 }

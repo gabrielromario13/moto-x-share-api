@@ -6,7 +6,7 @@ using MotoXShare.Infraestructure.UnitOfWork;
 namespace MotoXShare.Application.Interactor.Order;
 
 public class SaveOrderInteractor(
-    EntityFrameworkUnitOfWorkAsync unitOfWork, 
+    EntityFrameworkUnitOfWorkAsync unitOfWork,
     SaveOrderUseCase saveOrderUseCase
 ) : InteractorAsync<Guid, SaveOrderRequestDto>(unitOfWork), ISaveOrderInteractor
 {

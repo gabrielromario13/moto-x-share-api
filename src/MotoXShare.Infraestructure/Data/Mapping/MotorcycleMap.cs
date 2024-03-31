@@ -14,6 +14,6 @@ public class MotorcycleMap : EntityBaseConfiguration<Motorcycle>
         builder.Property(b => b.Year).IsRequired();
         builder.Property(b => b.Model).IsRequired();
         builder.Property(b => b.Plate).IsRequired();
-        builder.Property(b => b.Rented).HasDefaultValue(true);
+        builder.Property(b => b.Rented).IsRequired();
     }
 }

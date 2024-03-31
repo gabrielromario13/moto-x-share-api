@@ -4,12 +4,10 @@ namespace MotoXShare.Domain.Model;
 
 public class Rental : BaseEntity
 {
-    //Won't be possible to complete the rent if there's no motorcycles available!
-    //Only delivery riders qualified in category A can make a rental!
     public RentalPlanTypes PlanType { get; set; }
     public decimal RentalPrice { get; set; }
-    public DateTime StartDate { get; set; } = DateTime.Now.AddDays(1); //TODO: Check if this is the best way to do it!
-    public DateTime EndDatePrevision { get; set; }
+    public DateTime StartDate { get; set; } = DateTime.Now.AddDays(1);
+    public DateTime ExpectedEndDate { get; set; }
     public DateTime EndDate { get; set; }
 
     public Guid DeliveryRiderId { get; set; }

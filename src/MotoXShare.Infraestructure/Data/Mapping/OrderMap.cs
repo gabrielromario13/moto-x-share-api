@@ -11,7 +11,7 @@ public class OrderMap : EntityBaseConfiguration<Order>
     {
         builder.ToTable("Order");
 
-        builder.Property(b => b.DeliveryPrice).HasPrecision(8,2).IsRequired();
+        builder.Property(b => b.DeliveryPrice).IsRequired();
         builder.Property(b => b.Status).IsRequired();
         builder.Property(b => b.CreatedAt).IsRequired();
     }

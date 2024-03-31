@@ -7,4 +7,7 @@ public class Order(Guid id) : BaseEntity(id)
     public decimal DeliveryPrice { get; set; }
     public OrderStatus Status { get; set; }
     public DateTime CreatedAt { get; set; }
+
+    public Guid? DeliveryRiderId { get; set; }
+    public virtual DeliveryRider DeliveryRider { get; set; }
 }

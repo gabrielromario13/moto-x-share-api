@@ -18,7 +18,7 @@ public class SaveRentalUseCase(
     {
         var motorcycle = await _motorcycleRepository.GetSingle(x => !x.Rented);
         if (motorcycle is null)
-        { 
+        {
             //TODO: Add notification here. ("Nenhuma moto disponível para locação.")
 
             return Guid.Empty;

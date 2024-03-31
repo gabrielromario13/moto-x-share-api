@@ -59,6 +59,26 @@ namespace MotoXShare.Infraestructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    DeliveryPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DeliveryRiderId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Order_DeliveryRider_DeliveryRiderId",
+                        column: x => x.DeliveryRiderId,
+                        principalTable: "DeliveryRider",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rental",
                 columns: table => new
                 {
@@ -66,7 +86,7 @@ namespace MotoXShare.Infraestructure.Migrations
                     PlanType = table.Column<int>(type: "integer", nullable: false),
                     RentalPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    EndDatePrevision = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ExpectedEndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DeliveryRiderId = table.Column<Guid>(type: "uuid", nullable: false),
                     MotorcycleId = table.Column<Guid>(type: "uuid", nullable: false)
@@ -89,6 +109,12 @@ namespace MotoXShare.Infraestructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Order_DeliveryRiderId",
+                table: "Order",
+                column: "DeliveryRiderId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Rental_DeliveryRiderId",
                 table: "Rental",
                 column: "DeliveryRiderId",
@@ -104,6 +130,9 @@ namespace MotoXShare.Infraestructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Order");
+
             migrationBuilder.DropTable(
                 name: "Rental");
 

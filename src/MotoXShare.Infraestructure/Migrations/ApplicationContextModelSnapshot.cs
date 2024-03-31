@@ -89,10 +89,16 @@ namespace MotoXShare.Infraestructure.Migrations
                     b.Property<decimal>("DeliveryPrice")
                         .HasColumnType("numeric");
 
+                    b.Property<Guid?>("DeliveryRiderId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DeliveryRiderId")
+                        .IsUnique();
 
                     b.ToTable("Order");
                 });
@@ -109,7 +115,7 @@ namespace MotoXShare.Infraestructure.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("EndDatePrevision")
+                    b.Property<DateTime>("ExpectedEndDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("MotorcycleId")
@@ -155,6 +161,15 @@ namespace MotoXShare.Infraestructure.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("MotoXShare.Domain.Model.Order", b =>
+                {
+                    b.HasOne("MotoXShare.Domain.Model.DeliveryRider", "DeliveryRider")
+                        .WithOne("Order")
+                        .HasForeignKey("MotoXShare.Domain.Model.Order", "DeliveryRiderId");
+
+                    b.Navigation("DeliveryRider");
+                });
+
             modelBuilder.Entity("MotoXShare.Domain.Model.Rental", b =>
                 {
                     b.HasOne("MotoXShare.Domain.Model.DeliveryRider", "DeliveryRider")
@@ -176,6 +191,8 @@ namespace MotoXShare.Infraestructure.Migrations
 
             modelBuilder.Entity("MotoXShare.Domain.Model.DeliveryRider", b =>
                 {
+                    b.Navigation("Order");
+
                     b.Navigation("Rental");
                 });
 

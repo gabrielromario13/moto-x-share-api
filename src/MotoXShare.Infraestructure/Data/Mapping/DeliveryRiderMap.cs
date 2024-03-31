@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MotoXShare.Domain.Enums;
 using MotoXShare.Domain.Model;
 using MotoXShare.Infraestructure.Data.Mapping.Base;
 
@@ -13,8 +12,8 @@ public class DeliveryRiderMap : EntityBaseConfiguration<DeliveryRider>
         builder.ToTable("DeliveryRider");
 
         builder.Property(b => b.CNPJ).IsRequired();
-        builder.Property(b => b.CNH).IsRequired(true);
-        builder.Property(b => b.CNHType).HasConversion<CnhTypes>().IsRequired();
+        builder.Property(b => b.CNH).IsRequired();
+        builder.Property(b => b.CNHType).IsRequired();
         builder.Property(b => b.CNHImage).IsRequired();
     }
 }
