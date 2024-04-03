@@ -5,21 +5,20 @@ namespace MotoXShare.Application.Adapter;
 
 public class RentalAdapter
 {
-    public static Rental ToDomain(SaveRentalRequestDto param, Guid motorcycleId, Guid deliveryRiderId) =>
+    public static Rental ToDomain(SaveRentalRequestDto param, Guid motorcycleId) =>
         new()
         {
             MotorcycleId = motorcycleId,
-            DeliveryRiderId = deliveryRiderId,
-            RentalPrice = Rental.CalculateRentalPrice(param.EndDatePrevision, param.EndDate, param.PlanType),
+            DeliveryRiderId = param.DeliveryRiderId,
+            RentalPrice = Rental.CalculateRentalPrice(param.ExpectedEndDate, param.EndDate, param.PlanType),
             PlanType = param.PlanType,
-            StartDate = param.StartDate,
-            ExpectedEndDate = param.EndDatePrevision,
+            ExpectedEndDate = param.ExpectedEndDate,
             EndDate = param.EndDate
         };
 
-    public static GetRentalResponseDto FromDomain(Rental param, DateTime returnDate) =>
+    public static GetRentalResponseDto FromDomain(Rental param, DateTime expectedEndDate) =>
         new()
         {
-            RentalPrice = Rental.CalculateRentalPrice(returnDate, param.EndDate, param.PlanType)
+            RentalPrice = Rental.CalculateRentalPrice(expectedEndDate, param.EndDate, param.PlanType)
         };
 }

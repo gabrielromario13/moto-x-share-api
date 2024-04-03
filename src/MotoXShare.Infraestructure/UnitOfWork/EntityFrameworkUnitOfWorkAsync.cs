@@ -3,14 +3,9 @@ using MotoXShare.Infraestructure.UnitOfWork.Base;
 
 namespace MotoXShare.Infraestructure.UnitOfWork;
 
-public class EntityFrameworkUnitOfWorkAsync : UnitOfWorkAsync
+public class EntityFrameworkUnitOfWorkAsync(ApplicationContext context) : UnitOfWorkAsync
 {
-    private readonly ApplicationContext _context;
-
-    public EntityFrameworkUnitOfWorkAsync(ApplicationContext context)
-    {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-    }
+    private readonly ApplicationContext _context = context ?? throw new ArgumentNullException(nameof(context));
 
     protected override async Task OnBeginUnitAsync()
     {

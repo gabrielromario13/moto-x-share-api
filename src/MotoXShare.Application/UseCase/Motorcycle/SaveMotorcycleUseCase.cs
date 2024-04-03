@@ -10,8 +10,6 @@ public class SaveMotorcycleUseCase(IMotorcycleRepository repository)
 
     public virtual async Task<Guid> Action(SaveMotorcycleRequestDto param)
     {
-        //TODO: Validate plate, must be unique!
-
         var motorcycle = MotorcycleAdapter.ToDomain(param);
 
         await _repository.Add(motorcycle);

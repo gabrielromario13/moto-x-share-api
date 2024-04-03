@@ -3,20 +3,23 @@ using MotoXShare.Application.Interactor.DeliveryRider;
 using MotoXShare.Application.Interactor.Interface;
 using MotoXShare.Application.Interactor.Interface.DeliveryRider;
 using MotoXShare.Application.Interactor.Interface.Motorcycle;
+using MotoXShare.Application.Interactor.Interface.Notification;
 using MotoXShare.Application.Interactor.Interface.Order;
 using MotoXShare.Application.Interactor.Interface.Rental;
 using MotoXShare.Application.Interactor.Interface.User;
 using MotoXShare.Application.Interactor.Motorcycle;
+using MotoXShare.Application.Interactor.Notification;
 using MotoXShare.Application.Interactor.Order;
 using MotoXShare.Application.Interactor.Rental;
 using MotoXShare.Application.Interactor.User;
+using MotoXShare.Application.Subscribers;
 using MotoXShare.Application.UseCase.DeliveryRider;
 using MotoXShare.Application.UseCase.Motorcycle;
+using MotoXShare.Application.UseCase.Notification;
 using MotoXShare.Application.UseCase.Order;
 using MotoXShare.Application.UseCase.Rental;
 using MotoXShare.Application.UseCase.User;
-using MotoXShare.Infraestructure.Data.Repository;
-using MotoXShare.Infraestructure.Data.Repository.Interface;
+using MotoXShare.Infraestructure.Messaging;
 
 namespace MotoXShare.Application;
 
@@ -27,12 +30,12 @@ public static class Configure
         services
             .AddInteractors()
             .AddUseCase()
-            .AddRepositories();
+            .AddMessageBus();
 
         return services;
     }
 
-    public static IServiceCollection AddInteractors(this IServiceCollection services)
+    private static IServiceCollection AddInteractors(this IServiceCollection services)
     {
         services.AddScoped<ISaveUserInteractor, SaveUserInteractor>();
 
@@ -47,11 +50,14 @@ public static class Configure
         services.AddScoped<IGetRentalInteractor, GetRentalInteractor>();
 
         services.AddScoped<ISaveOrderInteractor, SaveOrderInteractor>();
+        services.AddScoped<IUpdateOrderInteractor, UpdateOrderInteractor>();
+
+        services.AddScoped<IGetNotificationInteractor, GetNotificationInteractor>();
 
         return services;
     }
 
-    public static IServiceCollection AddUseCase(this IServiceCollection services)
+    private static IServiceCollection AddUseCase(this IServiceCollection services)
     {
         services.AddScoped<SaveUserUseCase>();
 
@@ -66,17 +72,19 @@ public static class Configure
         services.AddScoped<GetRentalUseCase>();
 
         services.AddScoped<SaveOrderUseCase>();
+        services.AddScoped<UpdateOrderUseCase>();
+
+        services.AddScoped<SaveNotificationUseCase>();
+        services.AddScoped<GetNotificationUseCase>();
 
         return services;
     }
 
-    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    private static IServiceCollection AddMessageBus(this IServiceCollection services)
     {
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
-        services.AddScoped<IDeliveryRiderRepository, DeliveryRiderRepository>();
-        services.AddScoped<IRentalRepository, RentalRepository>();
-        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IMessageBusService, RabbitMqService>();
+
+        services.AddHostedService<OrdersCreatedSubscriber>();
 
         return services;
     }

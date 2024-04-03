@@ -10,4 +10,7 @@ public class RentalRepository(ApplicationContext context)
 {
     public async Task<bool> CheckIfMotorcycleIsRented(Guid motorcycleId) =>
         await _dbSet.AsNoTracking().AnyAsync(r => r.MotorcycleId == motorcycleId);
+
+    public async Task<bool> CheckActiveRentalByDeliveryRiderId(Guid deliveryRiderId) =>
+        await _dbSet.AsNoTracking().AnyAsync(r => r.DeliveryRiderId == deliveryRiderId);
 }

@@ -42,10 +42,9 @@ public class MotorcyclesController(
     [HttpPatch("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UpdatePlate(Guid id, [FromBody] string plate)
+    public async Task<IActionResult> UpdatePlate(Guid id, [FromQuery] string plate)
     {
-        var result = await _updateMotorcycleInteractor.Execute(MotorcycleAdapter.ToUpdateDto(id, plate));
+        var result = await _updateMotorcycleInteractor.Execute(new(id, plate));
 
         return result ? NoContent() : NotFound();
     }

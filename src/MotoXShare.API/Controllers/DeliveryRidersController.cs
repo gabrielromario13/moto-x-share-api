@@ -19,4 +19,6 @@ public class DeliveryRidersController(ISaveDeliveryRiderInteractor saveDeliveryR
 
         return Created($"{Request.Path}/{result}", new { });
     }
+
+    //HttpPatch("{id}") => Update CnhImage
 }

@@ -16,14 +16,6 @@ public class SaveRentalUseCase(
 
     public virtual async Task<Guid> Action(SaveRentalRequestDto param)
     {
-        var motorcycle = await _motorcycleRepository.GetSingle(x => !x.Rented);
-        if (motorcycle is null)
-        {
-            //TODO: Add notification here. ("Nenhuma moto disponível para locação.")
-
-            return Guid.Empty;
-        }
-
         var validCnhType = await _deliveryRiderRepository.CheckIfCnhTypeIsValid(param.DeliveryRiderId);
         if (!validCnhType)
         {
@@ -32,20 +24,27 @@ public class SaveRentalUseCase(
             return Guid.Empty;
         }
 
-        var activeRental = await _repository.GetSingle(x => x.DeliveryRiderId == param.DeliveryRiderId);
-        if (activeRental is not null)
+        var activeRental = await _repository.CheckActiveRentalByDeliveryRiderId(param.DeliveryRiderId);
+        if (activeRental)
         {
             //TODO: Add notification here. ("Este entregador já possui um plano de locação ativo.")
 
             return Guid.Empty;
         }
 
-        var rental = RentalAdapter.ToDomain(param, motorcycle.Id, param.DeliveryRiderId);
+        var motorcycle = await _motorcycleRepository.GetSingle(x => !x.Rented);
+        if (motorcycle is null)
+        {
+            //TODO: Add notification here. ("Nenhuma moto disponível para locação.")
+
+            return Guid.Empty;
+        }
+
+        var rental = RentalAdapter.ToDomain(param, motorcycle.Id);
 
         await _repository.Add(rental);
 
         motorcycle.Rented = true;
-
         await _motorcycleRepository.Update(motorcycle);
 
         return rental.Id;

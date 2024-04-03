@@ -36,23 +36,42 @@ public class RepositoryAsync<T>
             _dbSet.Remove(result);
     }
 
-    public async Task<T> GetSingle(Expression<Func<T, bool>> predicate = null)
+    public async Task<T> GetById(Guid id) =>
+        await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+    public async Task<T> GetSingle(
+        Expression<Func<T, bool>> predicate = null,
+        IEnumerable<Expression<Func<T, object>>> includeProperties = default)
     {
         var query = _dbSet.AsNoTracking();
 
         if (predicate != null)
             query = query.Where(predicate);
 
+        if (includeProperties != null)
+        {
+            foreach (var property in includeProperties)
+                query = query.Include(property);
+        }
+
         return await query.FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate = null)
+    public async Task<IEnumerable<T>> Get(
+        Expression<Func<T, bool>> predicate = null,
+        IEnumerable<Expression<Func<T, object>>> includeProperties = default)
     {
         var query = _dbSet.AsNoTracking()
                           .AsQueryable();
 
         if (predicate != null)
             query = query.Where(predicate);
+
+        if (includeProperties != null)
+        {
+            foreach (var property in includeProperties)
+                query = query.Include(property);
+        }
 
         return await query.ToListAsync();
     }

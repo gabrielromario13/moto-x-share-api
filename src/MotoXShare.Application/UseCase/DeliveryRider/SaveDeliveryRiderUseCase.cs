@@ -14,14 +14,11 @@ public class SaveDeliveryRiderUseCase(IDeliveryRiderRepository repository)
         var existentCnpj = await _repository.CheckIfCnpjExists(param.CNPJ);
         var existentCnh = await _repository.CheckIfCnhExists(param.CNH);
 
-        //TODO: Find a better way to do those validations
         if (existentCnpj)
-            return Guid.Empty; //TODO: Add notification here. ("CNPJ informado já está cadastrado!")
+            return Guid.Empty; //TODO: Add notification here.
 
         if (existentCnh)
-            return Guid.Empty; //TODO: Add notification here. ("CNH informada já está cadastrada!")
-
-        ValidateDocuments(param);
+            return Guid.Empty; //TODO: Add notification here.
 
         var deliveryRider = DeliveryRiderAdapter.ToDomain(param);
 
@@ -30,6 +27,7 @@ public class SaveDeliveryRiderUseCase(IDeliveryRiderRepository repository)
         return deliveryRider.Id;
     }
 
+    //TODO: Use FluentValidation
     private static void ValidateDocuments(SaveDeliveryRiderRequestDto param)
     {
         if (!CnpjValidation.Validate(param.CNPJ))

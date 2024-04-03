@@ -1,8 +1,7 @@
 ﻿namespace MotoXShare.Domain.Dto.Motorcycle;
 
-public class UpdateMotorcycleRequestDto
+public class UpdateMotorcycleRequestDto(Guid id, string plate)
 {
-    public Guid Id { get; set; }
-    public bool Rented { get; set; }
-    public string Plate { get; set; }
+    public Guid Id { get; set; } = id;
+    public string Plate { get; set; } = plate;
 }

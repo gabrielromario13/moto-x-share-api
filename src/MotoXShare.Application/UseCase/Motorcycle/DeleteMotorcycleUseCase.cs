@@ -7,16 +7,16 @@ public class DeleteMotorcycleUseCase(IRentalRepository rentalRepository, IMotorc
     private readonly IRentalRepository _rentalRepository = rentalRepository;
     private readonly IMotorcycleRepository _repository = repository;
 
-    public virtual async Task<bool> Action(Guid motorcycleId)
+    public virtual async Task<bool> Action(Guid id)
     {
-        var motorcycle = await _repository.GetSingle(x => x.Id == motorcycleId);
+        var motorcycle = await _repository.GetById(id);
 
         if (motorcycle is null)
         {
             return false; //TODO: Add notification here. ("Não foi possível encontrar a moto informada!")
         }
 
-        var motorcycleRented = await _rentalRepository.CheckIfMotorcycleIsRented(motorcycleId);
+        var motorcycleRented = await _rentalRepository.CheckIfMotorcycleIsRented(id);
 
         if (motorcycleRented)
         {

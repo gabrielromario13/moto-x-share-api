@@ -9,7 +9,7 @@ public class UpdateMotorcycleUseCase(IMotorcycleRepository repository)
 
     public virtual async Task<bool> Action(UpdateMotorcycleRequestDto param)
     {
-        var motorcycle = await _repository.GetSingle(x => x.Id == param.Id);
+        var motorcycle = await _repository.GetById(param.Id);
 
         if (motorcycle is null)
             return false;

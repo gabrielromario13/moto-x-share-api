@@ -24,11 +24,11 @@ public class RentalsController(
         return Created($"{Request.Path}/{result}", string.Empty);
     }
 
-    [HttpGet]
+    [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetRentalResponseDto), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Get([FromQuery] GetRentalRequestDto param)
+    public async Task<IActionResult> GetById(Guid id, [FromQuery] DateTime returnDate)
     {
-        var result = await _getRentalInteractor.Execute(param);
+        var result = await _getRentalInteractor.Execute(new(id, returnDate));
 
         return Ok(result);
     }

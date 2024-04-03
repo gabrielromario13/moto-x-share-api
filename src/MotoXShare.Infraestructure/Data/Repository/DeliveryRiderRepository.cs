@@ -24,5 +24,5 @@ public class DeliveryRiderRepository
         await _query.AnyAsync(d => d.CNH == cnh);
 
     public async Task<bool> CheckIfCnhTypeIsValid(Guid id) =>
-         await _query.AnyAsync(d => d.Id == id && d.CNHType == CnhTypes.A);
+         await _query.AnyAsync(d => d.Id == id && (d.CNHType == CnhTypes.A || d.CNHType == CnhTypes.AB));
 }

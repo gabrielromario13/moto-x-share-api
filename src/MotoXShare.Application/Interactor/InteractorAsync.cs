@@ -3,14 +3,11 @@ using MotoXShare.Infraestructure.UnitOfWork.Base;
 
 namespace MotoXShare.Application.Interactor;
 
-public abstract class InteractorAsync<TResult, TParam> : IInteractorAsync<TResult, TParam>
+public abstract class InteractorAsync<TResult, TParam>(
+    IUnitOfWorkAsync unitOfWork
+) : IInteractorAsync<TResult, TParam>
 {
-    private readonly IUnitOfWorkAsync _unitOfWork;
-
-    protected InteractorAsync(IUnitOfWorkAsync unitOfWork)
-    {
-        _unitOfWork = unitOfWork;
-    }
+    private readonly IUnitOfWorkAsync _unitOfWork = unitOfWork;
 
     public async Task<TResult> Execute(TParam param)
     {

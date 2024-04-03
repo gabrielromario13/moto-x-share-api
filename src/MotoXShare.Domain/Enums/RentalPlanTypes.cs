@@ -4,5 +4,5 @@ public enum RentalPlanTypes
 {
     SevenDays = 0,
     FifteenDays = 1,
-    TirtyDays = 2
+    ThirtyDays = 2
 }

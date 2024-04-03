@@ -6,7 +6,7 @@ public class Rental : BaseEntity
 {
     public RentalPlanTypes PlanType { get; set; }
     public decimal RentalPrice { get; set; }
-    public DateTime StartDate { get; set; } = DateTime.Now.AddDays(1);
+    public DateTime StartDate { get; set; } = DateTime.UtcNow.AddDays(1);
     public DateTime ExpectedEndDate { get; set; }
     public DateTime EndDate { get; set; }
 
@@ -21,7 +21,7 @@ public class Rental : BaseEntity
         {
             RentalPlanTypes.SevenDays => 7 * 30,
             RentalPlanTypes.FifteenDays => 15 * 28,
-            RentalPlanTypes.TirtyDays => 30 * 22,
+            RentalPlanTypes.ThirtyDays => 30 * 22,
             _ => 0,
         };
 
@@ -33,7 +33,7 @@ public class Rental : BaseEntity
             {
                 RentalPlanTypes.SevenDays => (decimal)(30 * 0.20) * timeSpan.Days + rentalPrice,
                 RentalPlanTypes.FifteenDays => (decimal)(28 * 0.40) * timeSpan.Days + rentalPrice,
-                RentalPlanTypes.TirtyDays => (decimal)(22 * 0.60) * timeSpan.Days + rentalPrice,
+                RentalPlanTypes.ThirtyDays => (decimal)(22 * 0.60) * timeSpan.Days + rentalPrice,
                 _ => 0,
             };
         }

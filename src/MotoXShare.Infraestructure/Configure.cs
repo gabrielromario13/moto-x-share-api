@@ -3,6 +3,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MotoXShare.Domain.Exceptions;
 using MotoXShare.Infraestructure.Context;
+using MotoXShare.Infraestructure.Data.Repository.Interface;
+using MotoXShare.Infraestructure.Data.Repository;
+using MotoXShare.Infraestructure.Messaging;
 using MotoXShare.Infraestructure.UnitOfWork;
 
 namespace MotoXShare.Infraestructure;
@@ -12,12 +15,13 @@ public static class Configure
     public static IServiceCollection ConfigureInfraestructure(this IServiceCollection services, IConfiguration configuration)
     {
         services
-            .ConfigurePostgreSQL(configuration);
+            .ConfigurePostgreSQL(configuration)
+            .AddRepositories();
 
         return services;
     }
 
-    public static IServiceCollection ConfigurePostgreSQL(this IServiceCollection services, IConfiguration configuration)
+    private static IServiceCollection ConfigurePostgreSQL(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration["DefaultConnection:ConnectionString"];
 
@@ -33,6 +37,18 @@ public static class Configure
 
         services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationContext>("postgresql");
+
+        return services;
+    }
+
+    private static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
+        services.AddScoped<IDeliveryRiderRepository, DeliveryRiderRepository>();
+        services.AddScoped<IRentalRepository, RentalRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<INotificationRepository, NotificationRepository>();
 
         return services;
     }

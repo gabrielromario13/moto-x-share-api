@@ -108,11 +108,34 @@ namespace MotoXShare.Infraestructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Notification",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DeliveryRidersIds = table.Column<Guid[]>(type: "uuid[]", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notification", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notification_Order_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Order",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notification_OrderId",
+                table: "Notification",
+                column: "OrderId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Order_DeliveryRiderId",
                 table: "Order",
-                column: "DeliveryRiderId",
-                unique: true);
+                column: "DeliveryRiderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rental_DeliveryRiderId",
@@ -131,7 +154,7 @@ namespace MotoXShare.Infraestructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "Notification");
 
             migrationBuilder.DropTable(
                 name: "Rental");
@@ -140,10 +163,13 @@ namespace MotoXShare.Infraestructure.Migrations
                 name: "User");
 
             migrationBuilder.DropTable(
-                name: "DeliveryRider");
+                name: "Order");
 
             migrationBuilder.DropTable(
                 name: "Motorcycle");
+
+            migrationBuilder.DropTable(
+                name: "DeliveryRider");
         }
     }
 }

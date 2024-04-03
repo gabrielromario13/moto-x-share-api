@@ -8,4 +8,9 @@ public class Motorcycle(Guid id) : BaseEntity(id)
     public bool Rented { get; set; }
 
     public Rental Rental { get; set; }
+
+    public void ToggleRented()
+    {
+        Rented = !Rented;
+    }
 }

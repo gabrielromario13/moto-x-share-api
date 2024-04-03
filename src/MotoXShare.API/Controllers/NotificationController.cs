@@ -1,0 +1,21 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using MotoXShare.Application.Interactor.Interface.Notification;
+using MotoXShare.Domain.Dto.Notification;
+
+namespace MotoXShare.API.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class NotificationsController(IGetNotificationInteractor getNotificationInteractor) : ControllerBase
+{
+    private readonly IGetNotificationInteractor _getNotificationInteractor = getNotificationInteractor;
+
+    [HttpGet("{orderId}")]
+    [ProducesResponseType(typeof(GetNotificationResponseDto), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetByOrderId(Guid orderId)
+    {
+        var result = await _getNotificationInteractor.Execute(orderId);
+
+        return Ok(result);
+    }
+}

@@ -3,7 +3,6 @@ using MotoXShare.Domain.Dto.Motorcycle;
 
 namespace MotoXShare.Application.Interactor.Interface;
 
-public interface IGetMotorcyclesInteractor :
-    IInteractorAsync<IEnumerable<GetMotorcycleResponseDto>, GetMotorcycleRequestDto>
+public interface IGetMotorcyclesInteractor : IInteractorAsync<IEnumerable<GetMotorcycleResponseDto>, GetMotorcycleRequestDto>
 {
 }

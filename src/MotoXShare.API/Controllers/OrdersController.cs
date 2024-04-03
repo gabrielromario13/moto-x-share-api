@@ -6,9 +6,13 @@ namespace MotoXShare.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class OrdersController(ISaveOrderInteractor saveOrderInteractor) : ControllerBase
+public class OrdersController(
+    ISaveOrderInteractor saveOrderInteractor,
+    IUpdateOrderInteractor updateOrderInteractor
+) : ControllerBase
 {
     private readonly ISaveOrderInteractor _saveOrderInteractor = saveOrderInteractor;
+    private readonly IUpdateOrderInteractor _updateOrderInteractor = updateOrderInteractor;
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -18,5 +22,15 @@ public class OrdersController(ISaveOrderInteractor saveOrderInteractor) : Contro
         var result = await _saveOrderInteractor.Execute(param);
 
         return Created($"{Request.Path}/{result}", new { });
+    }
+
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(Guid id, [FromBody] Guid deliveryRiderId)
+    {
+        var result = await _updateOrderInteractor.Execute(new(id, deliveryRiderId));
+
+        return result ? NoContent() : NotFound();
     }
 }

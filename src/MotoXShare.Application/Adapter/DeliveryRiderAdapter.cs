@@ -15,4 +15,16 @@ public class DeliveryRiderAdapter
             CNHType = param.CNHType,
             CNHImage = param.CNHImage
         };
+
+    public static GetDeliveryRiderResponseDto FromDomain(DeliveryRider param, Guid id = default) =>
+        new()
+        {
+            Id = param.Id,
+            Name = param.Name,
+            CNPJ = param.CNPJ,
+            BirthDate = param.BirthDate,
+            CNH = param.CNH,
+            CNHType = param.CNHType,
+            CNHImage = param.CNHImage
+        };
 }

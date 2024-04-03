@@ -77,6 +77,25 @@ namespace MotoXShare.Infraestructure.Migrations
                     b.ToTable("Motorcycle");
                 });
 
+            modelBuilder.Entity("MotoXShare.Domain.Model.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid[]>("DeliveryRidersIds")
+                        .HasColumnType("uuid[]");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Notification");
+                });
+
             modelBuilder.Entity("MotoXShare.Domain.Model.Order", b =>
                 {
                     b.Property<Guid>("Id")
@@ -97,8 +116,7 @@ namespace MotoXShare.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliveryRiderId")
-                        .IsUnique();
+                    b.HasIndex("DeliveryRiderId");
 
                     b.ToTable("Order");
                 });
@@ -161,11 +179,22 @@ namespace MotoXShare.Infraestructure.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("MotoXShare.Domain.Model.Notification", b =>
+                {
+                    b.HasOne("MotoXShare.Domain.Model.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("MotoXShare.Domain.Model.Order", b =>
                 {
                     b.HasOne("MotoXShare.Domain.Model.DeliveryRider", "DeliveryRider")
-                        .WithOne("Order")
-                        .HasForeignKey("MotoXShare.Domain.Model.Order", "DeliveryRiderId");
+                        .WithMany("Orders")
+                        .HasForeignKey("DeliveryRiderId");
 
                     b.Navigation("DeliveryRider");
                 });
@@ -191,7 +220,7 @@ namespace MotoXShare.Infraestructure.Migrations
 
             modelBuilder.Entity("MotoXShare.Domain.Model.DeliveryRider", b =>
                 {
-                    b.Navigation("Order");
+                    b.Navigation("Orders");
 
                     b.Navigation("Rental");
                 });
