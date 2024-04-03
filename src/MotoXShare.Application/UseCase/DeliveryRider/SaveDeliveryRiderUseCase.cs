@@ -1,24 +1,21 @@
-﻿using DocumentValidator;
-using MotoXShare.Application.Adapter;
+﻿using MotoXShare.Application.Adapter;
 using MotoXShare.Domain.Dto.DeliveryRider;
+using MotoXShare.Domain.Notification;
 using MotoXShare.Infraestructure.Data.Repository.Interface;
 
 namespace MotoXShare.Application.UseCase.DeliveryRider;
 
-public class SaveDeliveryRiderUseCase(IDeliveryRiderRepository repository)
+public class SaveDeliveryRiderUseCase(IDeliveryRiderRepository repository, NotificationHandler notificationHandler)
 {
     private readonly IDeliveryRiderRepository _repository = repository;
+    private readonly NotificationHandler _notificationHandler = notificationHandler;
 
     public virtual async Task<Guid> Action(SaveDeliveryRiderRequestDto param)
     {
-        var existentCnpj = await _repository.CheckIfCnpjExists(param.CNPJ);
-        var existentCnh = await _repository.CheckIfCnhExists(param.CNH);
-
-        if (existentCnpj)
-            return Guid.Empty; //TODO: Add notification here.
-
-        if (existentCnh)
-            return Guid.Empty; //TODO: Add notification here.
+        var validDocuments = await ValidateDocuments(param);
+        
+        if (!validDocuments)
+            return Guid.Empty;
 
         var deliveryRider = DeliveryRiderAdapter.ToDomain(param);
 
@@ -27,17 +24,22 @@ public class SaveDeliveryRiderUseCase(IDeliveryRiderRepository repository)
         return deliveryRider.Id;
     }
 
-    //TODO: Use FluentValidation
-    private static void ValidateDocuments(SaveDeliveryRiderRequestDto param)
+    private async Task<bool> ValidateDocuments(SaveDeliveryRiderRequestDto param)
     {
-        if (!CnpjValidation.Validate(param.CNPJ))
+        var existentCnpj = await _repository.CheckIfCnpjExists(param.CNPJ);
+        if (existentCnpj)
         {
-            //TODO: Add notification here. ("CNPJ inválido!")
+            _notificationHandler.Add(new("CNPJ informado já existe.", "ExistentCnpj"));
+            return false;
         }
 
-        if (!CnhValidation.Validate(param.CNH))
+        var existentCnh = await _repository.CheckIfCnhExists(param.CNH);
+        if (existentCnh)
         {
-            //TODO: Add notification here. ("CNH inválida!")
+            _notificationHandler.Add(new("CNH informado já existe.", "ExistentCnh"));
+            return false;
         }
+
+        return true;
     }
 }

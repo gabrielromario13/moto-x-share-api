@@ -1,4 +1,6 @@
-﻿namespace MotoXShare.Domain.Model;
+﻿using MotoXShare.Domain.Base;
+
+namespace MotoXShare.Domain.Model;
 
 public class Motorcycle(Guid id) : BaseEntity(id)
 {

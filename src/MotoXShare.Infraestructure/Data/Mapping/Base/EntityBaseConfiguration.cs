@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MotoXShare.Domain.Model;
+using MotoXShare.Domain.Base;
 
 namespace MotoXShare.Infraestructure.Data.Mapping.Base;
 

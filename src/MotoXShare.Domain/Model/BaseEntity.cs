@@ -1,4 +1,4 @@
-﻿namespace MotoXShare.Domain.Model;
+﻿namespace MotoXShare.Domain.Base;
 
 public abstract class BaseEntity
 {

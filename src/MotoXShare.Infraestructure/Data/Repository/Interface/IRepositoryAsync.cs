@@ -1,4 +1,4 @@
-﻿using MotoXShare.Domain.Model;
+﻿using MotoXShare.Domain.Base;
 using System.Linq.Expressions;
 
 namespace MotoXShare.Infraestructure.Data.Repository.Interface;

@@ -6,9 +6,13 @@ namespace MotoXShare.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class DeliveryRidersController(ISaveDeliveryRiderInteractor saveDeliveryRiderInteractor) : ControllerBase
+public class DeliveryRidersController(
+    ISaveDeliveryRiderInteractor saveDeliveryRiderInteractor,
+    IUpdateDeliveryRiderInteractor updateDeliveryRiderInteractor
+) : ControllerBase
 {
     private readonly ISaveDeliveryRiderInteractor _saveDeliveryRiderInteractor = saveDeliveryRiderInteractor;
+    private readonly IUpdateDeliveryRiderInteractor _updateDeliveryRiderInteractor = updateDeliveryRiderInteractor;
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -20,5 +24,11 @@ public class DeliveryRidersController(ISaveDeliveryRiderInteractor saveDeliveryR
         return Created($"{Request.Path}/{result}", new { });
     }
 
-    //HttpPatch("{id}") => Update CnhImage
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> UpdateCnhImage(Guid id, IFormFile cnhImage)
+    {
+        await _updateDeliveryRiderInteractor.Execute(new(id, cnhImage));
+        
+        return Ok();
+    }
 }

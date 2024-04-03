@@ -1,27 +1,28 @@
-﻿using MotoXShare.Infraestructure.Data.Repository.Interface;
+﻿using MotoXShare.Domain.Notification;
+using MotoXShare.Infraestructure.Data.Repository.Interface;
 
 namespace MotoXShare.Application.UseCase.Motorcycle;
 
-public class DeleteMotorcycleUseCase(IRentalRepository rentalRepository, IMotorcycleRepository repository)
+public class DeleteMotorcycleUseCase(IRentalRepository rentalRepository, IMotorcycleRepository repository, NotificationHandler notificationHandler)
 {
     private readonly IRentalRepository _rentalRepository = rentalRepository;
     private readonly IMotorcycleRepository _repository = repository;
+    private readonly NotificationHandler _notificationHandler = notificationHandler;
 
     public virtual async Task<bool> Action(Guid id)
     {
         var motorcycle = await _repository.GetById(id);
-
         if (motorcycle is null)
         {
-            return false; //TODO: Add notification here. ("Não foi possível encontrar a moto informada!")
+            _notificationHandler.Add(new("Não foi possível encontrar a moto informada.", "MotorcycleNotFound"));
+            return false;
         }
 
-        var motorcycleRented = await _rentalRepository.CheckIfMotorcycleIsRented(id);
-
-        if (motorcycleRented)
+        var rentedMotorcycle = await _rentalRepository.CheckIfMotorcycleIsRented(id);
+        if (rentedMotorcycle)
         {
-            //TODO: Add notification here. ("Moto com locação ativa. Não foi possível realizar exclusão!")
-            return true;
+            _notificationHandler.Add(new("Moto com locação ativa. Não foi possível realizar exclusão.", "RentedMotorcycle"));
+            return false;
         }
 
         await _repository.Remove(motorcycle);

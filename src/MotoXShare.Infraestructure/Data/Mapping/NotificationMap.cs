@@ -5,9 +5,9 @@ using MotoXShare.Infraestructure.Data.Mapping.Base;
 
 namespace MotoXShare.Infraestructure.Data.Mapping;
 
-public class NotificationMap : EntityBaseConfiguration<Notification>
+public class NotificationMap : EntityBaseConfiguration<DeliveryRiderNotification>
 {
-    public override void ConfigureMapping(EntityTypeBuilder<Notification> builder)
+    public override void ConfigureMapping(EntityTypeBuilder<DeliveryRiderNotification> builder)
     {
         builder.ToTable("Notification");
 

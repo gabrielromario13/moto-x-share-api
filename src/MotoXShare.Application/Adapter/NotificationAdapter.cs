@@ -5,14 +5,14 @@ namespace MotoXShare.Application.Adapter;
 
 public class NotificationAdapter
 {
-    public static Notification ToDomain(Guid orderId, List<Guid> deliveryRidersIds) =>
+    public static DeliveryRiderNotification ToDomain(Guid orderId, List<Guid> deliveryRidersIds) =>
         new()
         {
             OrderId = orderId,
             DeliveryRidersIds = deliveryRidersIds
         };
 
-    public static GetNotificationResponseDto FromDomain(Notification param, IEnumerable<DeliveryRider> deliveryRiders) =>
+    public static GetNotificationResponseDto FromDomain(DeliveryRiderNotification param, IEnumerable<DeliveryRider> deliveryRiders) =>
         new()
         {
             OrderId = param.OrderId,

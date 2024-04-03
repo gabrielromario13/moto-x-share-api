@@ -1,4 +1,5 @@
-﻿using MotoXShare.Domain.Enums;
+﻿using MotoXShare.Domain.Base;
+using MotoXShare.Domain.Enums;
 
 namespace MotoXShare.Domain.Model;
 

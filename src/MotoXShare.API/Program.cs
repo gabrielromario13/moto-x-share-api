@@ -1,3 +1,4 @@
+using MotoXShare.API.Filters;
 using MotoXShare.Application;
 using MotoXShare.Infraestructure;
 
@@ -10,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureApplication();
 builder.Services.ConfigureInfraestructure(builder.Configuration);
+builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());
 builder.Services.Configure<RouteOptions>(options =>
 {
     options.LowercaseUrls = true;

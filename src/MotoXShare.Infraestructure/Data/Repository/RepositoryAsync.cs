@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MotoXShare.Domain.Model;
+using MotoXShare.Domain.Base;
 using MotoXShare.Infraestructure.Data.Repository.Interface;
 using System.Linq.Expressions;
 
