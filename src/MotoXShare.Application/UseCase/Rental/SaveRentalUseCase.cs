@@ -45,7 +45,6 @@ public class SaveRentalUseCase(
         await _repository.Add(rental);
 
         motorcycle.ToggleRented();
-
         await _motorcycleRepository.Update(motorcycle);
 
         return rental.Id;

@@ -14,7 +14,7 @@ public class RabbitMqService : IMessageBusService
     {
         var connectionFactory = new ConnectionFactory
         {
-            HostName = "localhost"
+            Uri = new Uri(uriString: "amqp://guest:guest@localhost:5672")
         };
 
 

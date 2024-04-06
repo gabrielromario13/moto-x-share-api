@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MotoXShare.Application.Interactor.Interface.Rental;
 using MotoXShare.Domain.Dto.Rental;
 
 namespace MotoXShare.API.Controllers;
 
+[AllowAnonymous]
 [ApiController]
 [Route("api/[controller]")]
 public class RentalsController(

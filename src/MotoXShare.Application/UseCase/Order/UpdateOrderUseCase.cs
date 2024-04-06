@@ -15,13 +15,13 @@ public class UpdateOrderUseCase(
 
     public virtual async Task<bool> Action(UpdateOrderRequestDto param)
     {
-        var order = await _repository.GetById(param.OrderId);
+        var order = await _repository.GetById(param.Id);
 
         if (order is null)
             return false;
 
         var notifiedDeliveryRider = await _notificationRepository
-            .CheckIfDeliveryRiderWasNotified(param.OrderId, param.DeliveryRiderId);
+            .CheckIfDeliveryRiderWasNotified(param.Id, param.DeliveryRiderId);
 
         if (!notifiedDeliveryRider)
         {

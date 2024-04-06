@@ -3,9 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MotoXShare.Domain.Exceptions;
 using MotoXShare.Infraestructure.Context;
-using MotoXShare.Infraestructure.Data.Repository.Interface;
 using MotoXShare.Infraestructure.Data.Repository;
-using MotoXShare.Infraestructure.Messaging;
+using MotoXShare.Infraestructure.Data.Repository.Interface;
 using MotoXShare.Infraestructure.UnitOfWork;
 
 namespace MotoXShare.Infraestructure;
@@ -23,7 +22,7 @@ public static class Configure
 
     private static IServiceCollection ConfigurePostgreSQL(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration["DefaultConnection:ConnectionString"];
+        var connectionString = configuration["ConnectionStrings:Database"];
 
         if (string.IsNullOrWhiteSpace(connectionString))
             throw new CustomException("Connection string cannot be empty.");

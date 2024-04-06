@@ -1,4 +1,5 @@
-﻿using MotoXShare.Application.Adapter;
+﻿using DocumentValidator;
+using MotoXShare.Application.Adapter;
 using MotoXShare.Domain.Dto.DeliveryRider;
 using MotoXShare.Domain.Notification;
 using MotoXShare.Infraestructure.Data.Repository.Interface;
@@ -37,6 +38,18 @@ public class SaveDeliveryRiderUseCase(IDeliveryRiderRepository repository, Notif
         if (existentCnh)
         {
             _notificationHandler.Add(new("CNH informado já existe.", "ExistentCnh"));
+            return false;
+        }
+
+        if (!CnpjValidation.Validate(param.CNPJ))
+        {
+            _notificationHandler.Add(new("CNPJ inválido.", "InvalidCnpj"));
+            return false;
+        }
+
+        if (!CnhValidation.Validate(param.CNH))
+        {
+            _notificationHandler.Add(new("CNH inválido.", "InvalidCnh"));
             return false;
         }
 

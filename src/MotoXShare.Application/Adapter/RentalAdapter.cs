@@ -19,6 +19,6 @@ public class RentalAdapter
     public static GetRentalResponseDto FromDomain(Rental param, DateTime expectedEndDate) =>
         new()
         {
-            RentalPrice = Rental.CalculateRentalPrice(expectedEndDate, param.EndDate, param.PlanType)
+            RentalPrice = Rental.CalculateRentalPrice(expectedEndDate, param.EndDate, param.PlanType).ToString("N2")
         };
 }

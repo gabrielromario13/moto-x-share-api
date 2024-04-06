@@ -21,6 +21,7 @@ public class OrdersCreatedSubscriber : BackgroundService
         {
             HostName = "localhost"
         };
+
         _connection = connectionFactory.CreateConnection();
         _channel = _connection.CreateModel();
         _channel.QueueDeclare(

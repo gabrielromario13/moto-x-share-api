@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MotoXShare.Application.Interactor.Interface.DeliveryRider;
 using MotoXShare.Domain.Dto.DeliveryRider;
 
 namespace MotoXShare.API.Controllers;
 
+[AllowAnonymous]
 [ApiController]
 [Route("api/[controller]")]
 public class DeliveryRidersController(

@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MotoXShare.Application.Adapter;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MotoXShare.Application.Interactor.Interface;
 using MotoXShare.Application.Interactor.Interface.Motorcycle;
 using MotoXShare.Domain.Dto.Motorcycle;
 
 namespace MotoXShare.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class MotorcyclesController(

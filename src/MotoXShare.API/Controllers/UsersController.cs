@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MotoXShare.Application.Interactor.Interface.User;
 using MotoXShare.Domain.Dto.User;
 
 namespace MotoXShare.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class UsersController(ISaveUserInteractor saveUserInteractor) : ControllerBase

@@ -11,7 +11,7 @@ public class UserMap : EntityBaseConfiguration<User>
     {
         builder.ToTable("User");
 
-        builder.Property(b => b.Name).IsRequired();
+        builder.Property(b => b.FullName).IsRequired();
         builder.Property(b => b.BirthDate).IsRequired();
         builder.Property(b => b.IsAdmin).IsRequired();
     }

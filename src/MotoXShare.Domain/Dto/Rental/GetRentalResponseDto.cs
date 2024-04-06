@@ -2,5 +2,5 @@
 
 public class GetRentalResponseDto
 {
-    public decimal RentalPrice { get; set; }
+    public string RentalPrice { get; set; }
 }
