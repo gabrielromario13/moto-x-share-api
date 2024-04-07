@@ -5,8 +5,8 @@ namespace MotoXShare.Application.Adapter;
 
 public static class OrderAdapter
 {
-    public static Order ToDomain(SaveOrderRequestDto param, Guid id = default) =>
-        new(id)
+    public static Order ToDomain(SaveOrderRequestDto param) =>
+        new()
         {
             DeliveryPrice = param.DeliveryPrice,
             Status = param.Status,

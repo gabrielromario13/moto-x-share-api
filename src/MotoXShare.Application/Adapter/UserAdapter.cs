@@ -5,8 +5,8 @@ namespace MotoXShare.Application.Adapter;
 
 public static class UserAdapter
 {
-    public static User ToDomain(SaveUserRequestDto param, Guid id = default) =>
-        new(id)
+    public static User ToDomain(SaveUserRequestDto param) =>
+        new()
         {
             FullName = param.FullName,
             BirthDate = param.BirthDate,

@@ -15,33 +15,12 @@ public class NotificationFilter(NotificationHandler notification)
         ResultExecutingContext context,
         ResultExecutionDelegate next)
     {
-        var instance = context.HttpContext.Request.Path.Value;
-
-        var trace = context.HttpContext.TraceIdentifier;
-
-        if (!context.ModelState.IsValid)
-        {
-            foreach (var key in context.ModelState.Keys)
-            {
-                var modelState = context.ModelState[key];
-
-                if (modelState is not null)
-                {
-                    var error = string.Join(',', modelState.Errors.Select(c => c.ErrorMessage));
-
-                    _notification.Add(new Notification(error, key));
-                }
-            }
-
-            var response = SerializeResponse(instance!, trace);
-            await ResponseContext(context, response);
-
-            return;
-        }
-
         if (_notification.HasNotification())
         {
-            var response = SerializeResponse(instance!, trace);
+            var response = SerializeResponse(
+                context.HttpContext.Request.Path.Value!, 
+                context.HttpContext.TraceIdentifier
+            );
             await ResponseContext(context, response);
 
             return;

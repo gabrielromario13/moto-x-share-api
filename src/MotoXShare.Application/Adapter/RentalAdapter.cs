@@ -3,7 +3,7 @@ using MotoXShare.Domain.Model;
 
 namespace MotoXShare.Application.Adapter;
 
-public class RentalAdapter
+public static class RentalAdapter
 {
     public static Rental ToDomain(SaveRentalRequestDto param, Guid motorcycleId) =>
         new()

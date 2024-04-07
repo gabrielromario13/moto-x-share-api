@@ -3,10 +3,10 @@ using MotoXShare.Domain.Model;
 
 namespace MotoXShare.Application.Adapter;
 
-public class MotorcycleAdapter
+public static class MotorcycleAdapter
 {
-    public static Motorcycle ToDomain(SaveMotorcycleRequestDto param, Guid id = default) =>
-        new(id)
+    public static Motorcycle ToDomain(SaveMotorcycleRequestDto param) =>
+        new()
         {
             Year = param.Year,
             Model = param.Model,

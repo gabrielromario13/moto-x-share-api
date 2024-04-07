@@ -3,7 +3,7 @@ using MotoXShare.Domain.Model;
 
 namespace MotoXShare.Application.Adapter;
 
-public class NotificationAdapter
+public static class NotificationAdapter
 {
     public static DeliveryRiderNotification ToDomain(Guid orderId, List<Guid> deliveryRidersIds) =>
         new()
@@ -16,6 +16,6 @@ public class NotificationAdapter
         new()
         {
             OrderId = param.OrderId,
-            DeliveryRiders = deliveryRiders.Select(d => DeliveryRiderAdapter.FromDomain(d))
+            DeliveryRiders = deliveryRiders.Select(DeliveryRiderAdapter.FromDomain)
         };
 }

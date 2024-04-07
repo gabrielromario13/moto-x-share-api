@@ -27,10 +27,12 @@ public class DeliveryRidersController(
     }
 
     [HttpPatch("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateCnhImage(Guid id, IFormFile cnhImage)
     {
-        await _updateDeliveryRiderInteractor.Execute(new(id, cnhImage));
+        var result = await _updateDeliveryRiderInteractor.Execute(new(id, cnhImage));
         
-        return Ok();
+        return result ? NoContent() : NotFound();
     }
 }

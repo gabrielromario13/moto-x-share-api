@@ -31,7 +31,9 @@ builder.Services.AddSwaggerGen(swagger =>
 });
 
 builder.Services.AddAuthentication();
-builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+builder.Services
+    .AddIdentityApiEndpoints<IdentityUser>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.ConfigureApplication();

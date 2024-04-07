@@ -2,7 +2,7 @@
 
 namespace MotoXShare.Domain.Model;
 
-public class User(Guid id) : BaseEntity(id)
+public class User : BaseEntity
 {
     public string FullName { get; set; }
     public DateTime BirthDate { get; set; }

@@ -24,15 +24,14 @@ public class UpdateDeliveryRiderUseCase
     public virtual async Task<bool> Action(UpdateDeliveryRiderRequestDto param)
     {
         var deliveryRider = await _repository.GetById(param.Id);
+        
         if (deliveryRider is null)
-        {
-            _notificationHandler.Add(new("Entregador não encontrado.", "DeliveryRiderNotFound"));
             return false;
-        }
 
         var fileName = param.CnhImage.FileName;
 
         var validExtension = _validExtensions.Contains(Path.GetExtension(fileName).ToLower());
+        
         if (!validExtension)
         {
             _notificationHandler.Add(new("Formato de arquivo inválido. Formatos aceitos: .png ou .bmp.", "InvalidExtension"));

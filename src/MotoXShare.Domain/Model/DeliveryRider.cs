@@ -2,7 +2,7 @@
 
 namespace MotoXShare.Domain.Model;
 
-public class DeliveryRider(Guid id) : User(id)
+public class DeliveryRider : User
 {
     public string CNPJ { get; set; }
     public string CNH { get; set; }

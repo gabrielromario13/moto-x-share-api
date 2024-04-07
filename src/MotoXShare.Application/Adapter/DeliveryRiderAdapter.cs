@@ -3,10 +3,10 @@ using MotoXShare.Domain.Model;
 
 namespace MotoXShare.Application.Adapter;
 
-public class DeliveryRiderAdapter
+public static class DeliveryRiderAdapter
 {
-    public static DeliveryRider ToDomain(SaveDeliveryRiderRequestDto param, Guid id = default) =>
-        new(id)
+    public static DeliveryRider ToDomain(SaveDeliveryRiderRequestDto param) =>
+        new()
         {
             FullName = param.FullName,
             CNPJ = param.CNPJ,
@@ -15,7 +15,7 @@ public class DeliveryRiderAdapter
             CNHType = param.CNHType
         };
 
-    public static GetDeliveryRiderResponseDto FromDomain(DeliveryRider param, Guid id = default) =>
+    public static GetDeliveryRiderResponseDto FromDomain(DeliveryRider param) =>
         new()
         {
             Id = param.Id,

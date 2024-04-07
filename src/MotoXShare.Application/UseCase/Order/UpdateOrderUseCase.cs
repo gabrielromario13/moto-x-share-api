@@ -25,7 +25,7 @@ public class UpdateOrderUseCase(
 
         if (!notifiedDeliveryRider)
         {
-            _notificationHandler.Add(new("Entregador não foi notificado.", "UnnotifiedDeliveryRider"));
+            _notificationHandler.Add(new("Somente entregadores notificados podem aceitar pedidos.", "UnnotifiedDeliveryRider"));
             return false;
         }
 
