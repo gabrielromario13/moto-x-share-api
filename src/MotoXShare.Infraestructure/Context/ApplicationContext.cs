@@ -7,8 +7,10 @@ namespace MotoXShare.Infraestructure.Context;
 
 public class ApplicationContext : IdentityDbContext
 {
-    public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
+    public ApplicationContext(DbContextOptions<ApplicationContext> options, bool applyMigration = default) : base(options)
     {
+        if (Database.IsRelational() && applyMigration)
+            Database.Migrate();
     }
 
     public ApplicationContext() : base()

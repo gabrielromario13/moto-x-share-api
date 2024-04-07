@@ -27,6 +27,10 @@ public static class Configure
         if (string.IsNullOrWhiteSpace(connectionString))
             throw new CustomException("Connection string cannot be empty.");
 
+        var options = new DbContextOptionsBuilder<ApplicationContext>();
+        options.UseNpgsql(connectionString);
+        _ = new ApplicationContext(options.Options, true);
+
         services.AddScoped<EntityFrameworkUnitOfWorkAsync>();
 
         services.AddDbContext<ApplicationContext>(options =>
