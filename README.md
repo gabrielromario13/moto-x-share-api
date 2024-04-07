@@ -1,1 +1,26 @@
-Application to manage motorcycle rentals and delivery riders. When a delivery rider is registered and has an active rental, they can also deliver orders available on the platform.
+## How to use:
+
+- You will need to install RabbitMQ and PostgreSQL.
+
+**Enviroment**
+
+- [RabbitMQ](https://www.rabbitmq.com/docs/download)
+  - By default, application connect to http://localhost:5672
+- [PostgreSQL](https://www.postgresql.org/download/)
+  - Connection string configured on appsettings.json
+
+## Implemented technologies:
+
+- .NET Core 8
+- Entity Framework Core
+- RabbitMQ
+- FluentValidation
+- Swagger
+
+## Architecture:
+
+- SOLID and Clean Code
+- Domain Driven Design (Layers and Domain Model Pattern)
+- Notification filter middleware
+- Repository
+- Messaging
