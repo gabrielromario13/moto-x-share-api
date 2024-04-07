@@ -4,8 +4,8 @@ using MotoXShare.Infraestructure.Data.Repository.Interface;
 namespace MotoXShare.Application.UseCase.Motorcycle;
 
 public class DeleteMotorcycleUseCase(
-    IRentalRepository rentalRepository, 
-    IMotorcycleRepository repository, 
+    IRentalRepository rentalRepository,
+    IMotorcycleRepository repository,
     NotificationHandler notificationHandler)
 {
     private readonly IRentalRepository _rentalRepository = rentalRepository;
@@ -14,7 +14,7 @@ public class DeleteMotorcycleUseCase(
 
     public virtual async Task<bool> Action(Guid id)
     {
-        var motorcycle = await _repository.GetById(id); 
+        var motorcycle = await _repository.GetById(id);
 
         if (motorcycle is null)
             return false;

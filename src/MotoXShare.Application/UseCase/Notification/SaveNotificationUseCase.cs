@@ -33,7 +33,7 @@ public class SaveNotificationUseCase(
             return false;
 
         var notification = NotificationAdapter.ToDomain(orderId, deliveryRidersIds);
-        
+
         await unitOfWork.BeginUnitAsync();
 
         await _repository.Add(notification);
@@ -44,7 +44,7 @@ public class SaveNotificationUseCase(
     }
 
     private static List<Expression<Func<Domain.Model.DeliveryRider, object>>> GetExpression() =>
-        [ 
-            c => c.Rental 
+        [
+            c => c.Rental
         ];
 }

@@ -93,7 +93,7 @@ public static class Configure
 
     private static IServiceCollection AddMessageBus(this IServiceCollection services)
     {
-        services.AddScoped<IMessageBusService, RabbitMqService>();
+        services.AddScoped<IRabbitMqService, RabbitMqService>();
 
         services.AddHostedService<OrdersCreatedSubscriber>();
 

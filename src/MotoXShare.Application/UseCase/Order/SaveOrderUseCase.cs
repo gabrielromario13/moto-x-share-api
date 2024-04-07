@@ -6,11 +6,11 @@ using MotoXShare.Infraestructure.Messaging;
 namespace MotoXShare.Application.UseCase.Order;
 
 public class SaveOrderUseCase(
-    IOrderRepository repository, 
-    IMessageBusService messageBusService)
+    IOrderRepository repository,
+    IRabbitMqService messageBusService)
 {
     private readonly IOrderRepository _repository = repository;
-    private readonly IMessageBusService _messageBusService = messageBusService;
+    private readonly IRabbitMqService _messageBusService = messageBusService;
 
     public virtual async Task<Guid> Action(SaveOrderRequestDto param)
     {

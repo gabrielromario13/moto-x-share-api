@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MotoXShare.Application.Interactor.Interface.Order;
 using MotoXShare.Domain.Dto.Order;
+using System.ComponentModel.DataAnnotations;
 
 namespace MotoXShare.API.Controllers;
 
@@ -30,7 +31,7 @@ public class OrdersController(
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Update(Guid id, [FromBody] Guid deliveryRiderId)
+    public async Task<IActionResult> Update(Guid id, [Required] Guid deliveryRiderId)
     {
         var result = await _updateOrderInteractor.Execute(new(id, deliveryRiderId));
 

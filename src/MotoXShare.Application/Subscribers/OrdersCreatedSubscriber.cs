@@ -24,12 +24,8 @@ public class OrdersCreatedSubscriber : BackgroundService
 
         _connection = connectionFactory.CreateConnection();
         _channel = _connection.CreateModel();
-        _channel.QueueDeclare(
-                queue: QUEUE_NAME,
-                durable: false,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null);
+
+        _channel.QueueDeclare(QUEUE_NAME, false, false);
 
         _saveNotificationUseCase = serviceProvider.CreateScope()
             .ServiceProvider.GetRequiredService<SaveNotificationUseCase>();

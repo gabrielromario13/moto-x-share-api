@@ -1,6 +1,6 @@
 ﻿namespace MotoXShare.Infraestructure.Messaging;
 
-public interface IMessageBusService
+public interface IRabbitMqService
 {
     void Publish(object data);
 }

@@ -18,7 +18,7 @@ public class NotificationFilter(NotificationHandler notification)
         if (_notification.HasNotification())
         {
             var response = SerializeResponse(
-                context.HttpContext.Request.Path.Value!, 
+                context.HttpContext.Request.Path.Value!,
                 context.HttpContext.TraceIdentifier
             );
             await ResponseContext(context, response);

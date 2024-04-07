@@ -26,7 +26,7 @@ public class Rental : BaseEntity
             _ => 0,
         };
 
-        var timeSpan = endDate - expectedEndDate;
+        var timeSpan = endDate.Date - expectedEndDate.Date;
 
         if (timeSpan.Days > 0)
         {

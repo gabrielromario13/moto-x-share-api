@@ -32,7 +32,7 @@ public class DeliveryRidersController(
     public async Task<IActionResult> UpdateCnhImage(Guid id, IFormFile cnhImage)
     {
         var result = await _updateDeliveryRiderInteractor.Execute(new(id, cnhImage));
-        
+
         return result ? NoContent() : NotFound();
     }
 }
