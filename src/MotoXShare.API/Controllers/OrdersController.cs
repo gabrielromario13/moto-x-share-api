@@ -5,6 +5,7 @@ using MotoXShare.Domain.Dto.Order;
 
 namespace MotoXShare.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class OrdersController(
@@ -16,7 +17,6 @@ public class OrdersController(
     private readonly IUpdateOrderInteractor _updateOrderInteractor = updateOrderInteractor;
 
     [HttpPost]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create([FromBody] SaveOrderRequestDto param)
@@ -26,8 +26,8 @@ public class OrdersController(
         return Created($"{Request.Path}/{result}", new { });
     }
 
-    [HttpPut("{id}")]
     [AllowAnonymous]
+    [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(Guid id, [FromBody] Guid deliveryRiderId)

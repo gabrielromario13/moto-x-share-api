@@ -12,6 +12,9 @@ public class GetRentalUseCase(IRentalRepository repository)
     {
         var rental = await _repository.GetSingle(r => r.Id == param.Id);
 
+        if (rental is null) 
+            return default;
+
         return RentalAdapter.FromDomain(rental, param.ReturnDate);
     }
 }

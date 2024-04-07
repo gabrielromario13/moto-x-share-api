@@ -9,9 +9,6 @@ public static class UserAdapter
         new()
         {
             FullName = param.FullName,
-            BirthDate = param.BirthDate,
-            Email = param.Email,
-            Password = param.Password,
-            IsAdmin = param.IsAdmin
+            BirthDate = param.BirthDate
         };
 }

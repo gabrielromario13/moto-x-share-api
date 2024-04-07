@@ -13,9 +13,9 @@ public class SaveDeliveryRiderUseCase(IDeliveryRiderRepository repository, Notif
 
     public virtual async Task<Guid> Action(SaveDeliveryRiderRequestDto param)
     {
-        var validDocuments = await ValidateDocuments(param);
-        
-        if (!validDocuments)
+        await ValidateDocuments(param);
+
+        if (_notificationHandler.HasNotification())
             return Guid.Empty;
 
         var deliveryRider = DeliveryRiderAdapter.ToDomain(param);
@@ -25,34 +25,24 @@ public class SaveDeliveryRiderUseCase(IDeliveryRiderRepository repository, Notif
         return deliveryRider.Id;
     }
 
-    private async Task<bool> ValidateDocuments(SaveDeliveryRiderRequestDto param)
+    private async Task ValidateDocuments(SaveDeliveryRiderRequestDto param)
     {
         var existentCnpj = await _repository.CheckIfCnpjExists(param.CNPJ);
         if (existentCnpj)
-        {
             _notificationHandler.Add(new("CNPJ informado já existe.", "ExistentCnpj"));
-            return false;
-        }
 
         var existentCnh = await _repository.CheckIfCnhExists(param.CNH);
         if (existentCnh)
-        {
             _notificationHandler.Add(new("CNH informado já existe.", "ExistentCnh"));
-            return false;
-        }
 
         if (!CnpjValidation.Validate(param.CNPJ))
         {
             _notificationHandler.Add(new("CNPJ inválido.", "InvalidCnpj"));
-            return false;
         }
 
         if (!CnhValidation.Validate(param.CNH))
         {
             _notificationHandler.Add(new("CNH inválido.", "InvalidCnh"));
-            return false;
         }
-
-        return true;
     }
 }

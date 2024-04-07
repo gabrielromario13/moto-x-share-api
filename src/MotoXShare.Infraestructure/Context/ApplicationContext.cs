@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MotoXShare.Infraestructure.Data.Mapping.Base;
 
 namespace MotoXShare.Infraestructure.Context;
@@ -16,7 +17,15 @@ public class ApplicationContext : IdentityDbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("User ID=postgres;Password=Gc$#@130201---;Host=localhost;Port=5432;Database=MotoXShareDB;Pooling=true;Include Error Detail=true;");
+        if (!optionsBuilder.IsConfigured)
+        {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+               .SetBasePath(Path.GetFullPath("..\\MotoXShare.API"))
+               .AddJsonFile("appsettings.json")
+               .Build();
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseNpgsql(connectionString);
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

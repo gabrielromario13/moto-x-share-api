@@ -28,10 +28,11 @@ public class RentalsController(
 
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetRentalResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(Guid id, [FromQuery] DateTime returnDate)
     {
         var result = await _getRentalInteractor.Execute(new(id, returnDate));
 
-        return Ok(result);
+        return result == default ? NotFound() : Ok(result);
     }
 }

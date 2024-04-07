@@ -22,15 +22,17 @@ public class SaveNotificationUseCase(
         var includeProperties = GetExpression();
 
         var unavailableDeliveryRidersIds = (await _orderRepository
-            .Get(o => o.Status == OrderStatus.Accepted)).Select(o => o.DeliveryRiderId);
+            .Get(o => o.Status == OrderStatus.Accepted))
+            .Select(o => o.DeliveryRiderId);
 
         var deliveryRidersIds = (await _deliveryRiderRepository
-            .Get(d => d.Rental != null && !unavailableDeliveryRidersIds.Contains(d.Id), includeProperties)).Select(d => d.Id);
+            .Get(d => d.Rental != null && !unavailableDeliveryRidersIds.Contains(d.Id), includeProperties))
+            .Select(d => d.Id);
 
         if (!deliveryRidersIds.Any())
             return false;
 
-        var notification = NotificationAdapter.ToDomain(orderId, deliveryRidersIds.ToList());
+        var notification = NotificationAdapter.ToDomain(orderId, deliveryRidersIds);
         
         await unitOfWork.BeginUnitAsync();
 
@@ -41,7 +43,7 @@ public class SaveNotificationUseCase(
         return true;
     }
 
-    private static List<Expression<Func<Domain.Model.DeliveryRider, object>>> GetExpression() => 
+    private static List<Expression<Func<Domain.Model.DeliveryRider, object>>> GetExpression() =>
         [ 
             c => c.Rental 
         ];

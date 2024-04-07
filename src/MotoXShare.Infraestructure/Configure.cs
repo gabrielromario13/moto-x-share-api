@@ -22,7 +22,7 @@ public static class Configure
 
     private static IServiceCollection ConfigurePostgreSQL(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration["ConnectionStrings:Database"];
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         if (string.IsNullOrWhiteSpace(connectionString))
             throw new CustomException("Connection string cannot be empty.");

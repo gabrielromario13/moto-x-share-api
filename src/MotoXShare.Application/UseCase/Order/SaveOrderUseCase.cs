@@ -7,8 +7,7 @@ namespace MotoXShare.Application.UseCase.Order;
 
 public class SaveOrderUseCase(
     IOrderRepository repository, 
-    IMessageBusService messageBusService
-)
+    IMessageBusService messageBusService)
 {
     private readonly IOrderRepository _repository = repository;
     private readonly IMessageBusService _messageBusService = messageBusService;

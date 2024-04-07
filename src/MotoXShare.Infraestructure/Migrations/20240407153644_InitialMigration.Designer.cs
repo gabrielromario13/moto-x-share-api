@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MotoXShare.Infraestructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240405220604_InitialMigration")]
+    [Migration("20240407153644_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -242,16 +242,7 @@ namespace MotoXShare.Infraestructure.Migrations
                     b.Property<string>("CNPJ")
                         .HasColumnType("text");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
                     b.Property<string>("FullName")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Password")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -373,16 +364,7 @@ namespace MotoXShare.Infraestructure.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
                     b.Property<string>("FullName")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Password")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

@@ -14,10 +14,11 @@ public class NotificationsController(IGetNotificationInteractor getNotificationI
 
     [HttpGet("{orderId}")]
     [ProducesResponseType(typeof(GetNotificationResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByOrderId(Guid orderId)
     {
         var result = await _getNotificationInteractor.Execute(orderId);
 
-        return Ok(result);
+        return result == default ? NotFound() : Ok(result);
     }
 }

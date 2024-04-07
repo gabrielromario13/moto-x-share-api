@@ -13,6 +13,9 @@ public class GetNotificationUseCase(INotificationRepository repository, IDeliver
     {
         var notification = await _repository.GetSingle(r => r.OrderId == orderId);
 
+        if (notification is null) 
+            return default;
+
         var deliveryRiders = await _deliveryRiderRepository.Get(d => notification.DeliveryRidersIds.Contains(d.Id));
 
         return NotificationAdapter.FromDomain(notification, deliveryRiders);

@@ -1,21 +1,7 @@
 ﻿namespace MotoXShare.Domain.Notification;
 
-public sealed class Notification
+public sealed class Notification(string detail, string error)
 {
-    public string Detail { get; private set; }
-    public string Error { get; private set; }
-    public string Type { get; private set; } = string.Empty;
-
-    public Notification(string detail, string error)
-    {
-        Detail = detail;
-        Error = error;
-    }
-
-    public Notification(string detail, string error, string type)
-    {
-        Detail = detail;
-        Error = error;
-        Type = type;
-    }
+    public string Detail { get; private set; } = detail;
+    public string Error { get; private set; } = error;
 }

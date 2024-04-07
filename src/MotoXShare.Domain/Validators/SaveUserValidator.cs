@@ -14,13 +14,5 @@ public class SaveUserValidator : AbstractValidator<SaveUserRequestDto>
         RuleFor(u => u.BirthDate)
             .NotEmpty()
             .LessThan(DateTime.UtcNow).WithMessage("Data de nascimento inválida.");
-
-        RuleFor(u => u.Email)
-            .NotEmpty()
-            .EmailAddress().WithMessage("Email inválido.");
-
-        RuleFor(u => u.Password)
-            .NotEmpty()
-            .Length(5, 30).WithMessage("Senha deve conter entre 5 à 30 caracteres.");
     }
 }

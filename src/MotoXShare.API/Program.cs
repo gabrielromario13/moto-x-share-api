@@ -18,22 +18,21 @@ builder.Services.AddValidatorsFromAssemblyContaining<SaveUserValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen(swagger =>
+builder.Services.AddSwaggerGen(options =>
 {
-    swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey
     });
 
-    swagger.OperationFilter<SecurityRequirementsOperationFilter>();
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
-builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
 builder.Services
     .AddIdentityApiEndpoints<IdentityUser>()
-    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.ConfigureApplication();

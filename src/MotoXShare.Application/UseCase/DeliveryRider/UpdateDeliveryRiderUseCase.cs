@@ -8,8 +8,8 @@ public class UpdateDeliveryRiderUseCase
 {
     private readonly IDeliveryRiderRepository _repository;
     private readonly NotificationHandler _notificationHandler;
-    private static readonly string PATH = $@"C:\CnhImages\";
-    private readonly string[] _validExtensions = [".png", ".bmp"];
+    private static readonly string PATH = @"C:\CnhImages\";
+    private readonly string[] ValidExtensions = [".png", ".bmp"];
 
     public UpdateDeliveryRiderUseCase(
         IDeliveryRiderRepository repository, 
@@ -30,7 +30,7 @@ public class UpdateDeliveryRiderUseCase
 
         var fileName = param.CnhImage.FileName;
 
-        var validExtension = _validExtensions.Contains(Path.GetExtension(fileName).ToLower());
+        var validExtension = ValidExtensions.Contains(Path.GetExtension(fileName).ToLower());
         
         if (!validExtension)
         {

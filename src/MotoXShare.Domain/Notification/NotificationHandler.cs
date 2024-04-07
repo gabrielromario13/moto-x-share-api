@@ -12,12 +12,6 @@ public class NotificationHandler
     public virtual void Add(Notification notification) =>
        _notifications.Add(notification);
 
-    public virtual void AddNotifications(IEnumerable<Notification> notifications) =>
-        _notifications.AddRange(notifications);
-
-    public virtual IEnumerable<Notification> Get() =>
-       _notifications;
-
     public virtual bool HasNotification() =>
         _notifications.Count > 0;
 
@@ -29,7 +23,7 @@ public class NotificationHandler
         var errors = new List<ErrorsResponseDetail>(_notifications.Count);
 
         foreach (var notification in _notifications)
-            errors.Add(new(notification.Type, notification.Error, notification.Detail));
+            errors.Add(new(notification.Error, notification.Detail));
 
         return new(instance, traceId, errors);
     }
