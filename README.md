@@ -8,6 +8,7 @@
   - By default, application connect to http://localhost:5672
 - [PostgreSQL](https://www.postgresql.org/download/)
   - Connection string configured on appsettings.json
+  - Migrations will be applied when you run the application
 
 ## Implemented technologies:
 
@@ -22,5 +23,4 @@
 - SOLID and Clean Code
 - Domain Driven Design (Layers and Domain Model Pattern)
 - Notification filter middleware
-- Repository
 - Messaging
