@@ -5,9 +5,9 @@
 **Enviroment**
 
 - [RabbitMQ](https://www.rabbitmq.com/docs/download)
-  - By default, application connect to http://localhost:15672
+  - By default, the application connect to http://localhost:15672
 - [PostgreSQL](https://www.postgresql.org/download/)
-  - Connection string configured on appsettings.json
+  - Connection string is configured on appsettings.json
   - Migrations will be applied when you start the application
 
 ## How to authenticate:
