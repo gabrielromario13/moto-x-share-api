@@ -17,7 +17,8 @@
   - (user@user.com, User!1)
 - To authenticate you have to login here: (if you want to use cookies instead of a token, just set the property "useCookies" to true)
   - ![image](https://github.com/gabrielromario13/moto-x-share-api/assets/50808281/a64a2f08-68a0-4886-90a7-2df37455780c)
-- And paste the generated token here: (don't forget to add "Bearer" before the token)
+- After that, paste the generated token in the Swagger's authorize button: (don't forget to add "Bearer" before the token)
+  - ![image](https://github.com/gabrielromario13/moto-x-share-api/assets/50808281/d0b6eead-68e6-4546-8859-d0dfe373e7aa)
   - ![image](https://github.com/gabrielromario13/moto-x-share-api/assets/50808281/bb9aea26-4b39-420f-8392-b75a966da161)
 
 
