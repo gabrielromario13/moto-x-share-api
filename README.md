@@ -28,12 +28,12 @@
 - Entity Framework Core
 - RabbitMQ
 - FluentValidation
+- Identity Authetication
 - Swagger
 
 ## Architecture:
 
 - SOLID and Clean Code
 - Domain Driven Design (Layers and Domain Model Pattern)
-- Identity authetication
 - Notification filter middleware
 - Messaging
