@@ -46,7 +46,6 @@ public static class Configure
 
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
         services.AddScoped<IDeliveryRiderRepository, DeliveryRiderRepository>();
         services.AddScoped<IRentalRepository, RentalRepository>();

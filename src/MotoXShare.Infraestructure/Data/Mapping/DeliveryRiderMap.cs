@@ -11,6 +11,8 @@ public class DeliveryRiderMap : EntityBaseConfiguration<DeliveryRider>
     {
         builder.ToTable("DeliveryRider");
 
+        builder.Property(b => b.FullName).IsRequired();
+        builder.Property(b => b.BirthDate).IsRequired();
         builder.Property(b => b.CNPJ).IsRequired();
         builder.Property(b => b.CNH).IsRequired();
         builder.Property(b => b.CNHType).IsRequired();
