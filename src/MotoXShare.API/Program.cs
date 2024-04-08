@@ -33,6 +33,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddAuthorization();
 builder.Services
     .AddIdentityApiEndpoints<IdentityUser>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.ConfigureApplication();
@@ -61,5 +62,32 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseHealthChecks("/health");
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var roles = new[] { "Admin", "User" };
+
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+    var user = new IdentityUser[]
+    {
+        new() { UserName = "admin@admin.com", Email = "admin@admin.com" },
+        new() { UserName = "user@user.com", Email = "user@user.com" }
+    };
+    await userManager.CreateAsync(user[0], "Admin!1");
+    await userManager.AddToRoleAsync(user[0], "Admin");
+
+    await userManager.CreateAsync(user[1], "User!1");
+    await userManager.AddToRoleAsync(user[1], "User");
+}
 
 app.Run();

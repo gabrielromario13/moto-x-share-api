@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MotoXShare.API.Controllers;
 
-[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class OrdersController(
@@ -17,6 +16,7 @@ public class OrdersController(
     private readonly ISaveOrderInteractor _saveOrderInteractor = saveOrderInteractor;
     private readonly IUpdateOrderInteractor _updateOrderInteractor = updateOrderInteractor;
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -27,7 +27,7 @@ public class OrdersController(
         return Created($"{Request.Path}/{result}", new { });
     }
 
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin, User")]
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

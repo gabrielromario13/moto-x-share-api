@@ -5,7 +5,7 @@ using MotoXShare.Domain.Dto.Notification;
 
 namespace MotoXShare.API.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 [ApiController]
 [Route("api/[controller]")]
 public class NotificationsController(IGetNotificationInteractor getNotificationInteractor) : ControllerBase

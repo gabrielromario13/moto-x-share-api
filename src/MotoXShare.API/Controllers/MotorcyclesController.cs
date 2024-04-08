@@ -6,7 +6,7 @@ using MotoXShare.Domain.Dto.Motorcycle;
 
 namespace MotoXShare.API.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 [ApiController]
 [Route("api/[controller]")]
 public class MotorcyclesController(
