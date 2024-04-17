@@ -8,7 +8,7 @@ namespace MotoXShare.API.Controllers;
 
 [Authorize(Roles = "Admin")]
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 public class MotorcyclesController(
     ISaveMotorcycleInteractor saveMotorcycleInteractor,
     IGetMotorcyclesInteractor getMotorcyclesInteractor,

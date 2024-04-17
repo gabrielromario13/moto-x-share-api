@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace MotoXShare.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 public class OrdersController(
     ISaveOrderInteractor saveOrderInteractor,
     IUpdateOrderInteractor updateOrderInteractor

@@ -7,7 +7,7 @@ namespace MotoXShare.API.Controllers;
 
 [Authorize(Roles = "Admin")]
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 public class NotificationsController(IGetNotificationInteractor getNotificationInteractor) : ControllerBase
 {
     private readonly IGetNotificationInteractor _getNotificationInteractor = getNotificationInteractor;

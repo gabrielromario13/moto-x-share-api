@@ -5,7 +5,7 @@ using MotoXShare.Infraestructure.Data.Mapping.Base;
 
 namespace MotoXShare.Infraestructure.Context;
 
-public class ApplicationContext : IdentityDbContext
+public class ApplicationContext : DbContext
 {
     public ApplicationContext(DbContextOptions<ApplicationContext> options, bool applyMigration = default) : base(options)
     {

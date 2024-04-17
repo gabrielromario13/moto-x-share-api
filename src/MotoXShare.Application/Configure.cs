@@ -10,6 +10,7 @@ using MotoXShare.Application.Interactor.Motorcycle;
 using MotoXShare.Application.Interactor.Notification;
 using MotoXShare.Application.Interactor.Order;
 using MotoXShare.Application.Interactor.Rental;
+using MotoXShare.Application.Services;
 using MotoXShare.Application.Subscribers;
 using MotoXShare.Application.UseCase.DeliveryRider;
 using MotoXShare.Application.UseCase.Motorcycle;
@@ -80,6 +81,7 @@ public static class Configure
     private static IServiceCollection AddExtensions(this IServiceCollection services)
     {
         services.AddScoped<NotificationHandler>();
+        services.AddScoped<ITokenService, TokenService>();
 
         return services;
     }
