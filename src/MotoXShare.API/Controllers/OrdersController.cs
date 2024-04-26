@@ -19,7 +19,6 @@ public class OrdersController(
     [Authorize(Roles = "Admin")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create(SaveOrderRequestDto param)
     {
         var result = await _saveOrderInteractor.Execute(param);

@@ -13,6 +13,8 @@ namespace MotoXShare.API.Controllers
         private readonly IAuthenticateUserInteractor _authenticateUserInteractor = authenticateUserInteractor;
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(GetUserResponseDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> Authenticate(AuthenticateUserDto param)
         {
             var result = await _authenticateUserInteractor.Execute(param);

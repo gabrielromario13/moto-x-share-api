@@ -23,7 +23,6 @@ public class MotorcyclesController(
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create(SaveMotorcycleRequestDto param)
     {
         var result = await _saveMotorcycleInteractor.Execute(param);

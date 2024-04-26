@@ -18,7 +18,6 @@ public class DeliveryRidersController(
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create(SaveDeliveryRiderRequestDto param)
     {
         var result = await _saveDeliveryRiderInteractor.Execute(param);

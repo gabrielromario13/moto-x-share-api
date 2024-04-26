@@ -14,7 +14,6 @@ public class UserController(ISaveUserInteractor saveUserInteractor) : Controller
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create(SaveUserRequestDto param)
     {
         var result = await _saveUserInteractor.Execute(param);
