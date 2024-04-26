@@ -5,9 +5,9 @@ using MotoXShare.Domain.Dto.DeliveryRider;
 
 namespace MotoXShare.API.Controllers;
 
-[Authorize(Roles = "Admin, User")]
+[Authorize(Roles = "Admin, DeliveryRider")]
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 public class DeliveryRidersController(
     ISaveDeliveryRiderInteractor saveDeliveryRiderInteractor,
     IUpdateDeliveryRiderInteractor updateDeliveryRiderInteractor
@@ -19,7 +19,7 @@ public class DeliveryRidersController(
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Create([FromBody] SaveDeliveryRiderRequestDto param)
+    public async Task<IActionResult> Create(SaveDeliveryRiderRequestDto param)
     {
         var result = await _saveDeliveryRiderInteractor.Execute(param);
 

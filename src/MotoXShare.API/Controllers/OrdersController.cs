@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace MotoXShare.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 public class OrdersController(
     ISaveOrderInteractor saveOrderInteractor,
     IUpdateOrderInteractor updateOrderInteractor
@@ -20,14 +20,14 @@ public class OrdersController(
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Create([FromBody] SaveOrderRequestDto param)
+    public async Task<IActionResult> Create(SaveOrderRequestDto param)
     {
         var result = await _saveOrderInteractor.Execute(param);
 
         return Created($"{Request.Path}/{result}", new { });
     }
 
-    [Authorize(Roles = "Admin, User")]
+    [Authorize(Roles = "Admin, DeliveryRider")]
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

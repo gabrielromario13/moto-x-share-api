@@ -2,7 +2,7 @@
 
 public enum CnhTypes
 {
-    A = 0,
-    B = 1,
-    AB = 2
+    A = 1,
+    B = 2,
+    AB = 3
 }

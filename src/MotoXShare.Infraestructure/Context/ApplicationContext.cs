@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using MotoXShare.Infraestructure.Data.Mapping.Base;
 
 namespace MotoXShare.Infraestructure.Context;
 
-public class ApplicationContext : IdentityDbContext
+public class ApplicationContext : DbContext
 {
     public ApplicationContext(DbContextOptions<ApplicationContext> options, bool applyMigration = default) : base(options)
     {
@@ -32,7 +30,7 @@ public class ApplicationContext : IdentityDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(IEntityFrameworkEntrypoint).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
 
         base.OnModelCreating(modelBuilder);
     }

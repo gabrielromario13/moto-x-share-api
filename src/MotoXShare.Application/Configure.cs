@@ -6,16 +6,20 @@ using MotoXShare.Application.Interactor.Interface.Motorcycle;
 using MotoXShare.Application.Interactor.Interface.Notification;
 using MotoXShare.Application.Interactor.Interface.Order;
 using MotoXShare.Application.Interactor.Interface.Rental;
+using MotoXShare.Application.Interactor.Interface.User;
 using MotoXShare.Application.Interactor.Motorcycle;
 using MotoXShare.Application.Interactor.Notification;
 using MotoXShare.Application.Interactor.Order;
 using MotoXShare.Application.Interactor.Rental;
+using MotoXShare.Application.Interactor.User;
+using MotoXShare.Application.Services;
 using MotoXShare.Application.Subscribers;
 using MotoXShare.Application.UseCase.DeliveryRider;
 using MotoXShare.Application.UseCase.Motorcycle;
 using MotoXShare.Application.UseCase.Notification;
 using MotoXShare.Application.UseCase.Order;
 using MotoXShare.Application.UseCase.Rental;
+using MotoXShare.Application.UseCase.User;
 using MotoXShare.Domain.Notification;
 using MotoXShare.Infraestructure.Messaging;
 
@@ -52,6 +56,9 @@ public static class Configure
 
         services.AddScoped<IGetNotificationInteractor, GetNotificationInteractor>();
 
+        services.AddScoped<ISaveUserInteractor, SaveUserInteractor>();
+        services.AddScoped<IAuthenticateUserInteractor, AuthenticateUserInteractor>();
+
         return services;
     }
 
@@ -74,12 +81,16 @@ public static class Configure
         services.AddScoped<SaveNotificationUseCase>();
         services.AddScoped<GetNotificationUseCase>();
 
+        services.AddScoped<SaveUserUseCase>();
+        services.AddScoped<AuthenticateUserUseCase>();
+
         return services;
     }
 
     private static IServiceCollection AddExtensions(this IServiceCollection services)
     {
         services.AddScoped<NotificationHandler>();
+        services.AddScoped<ITokenService, TokenService>();
 
         return services;
     }

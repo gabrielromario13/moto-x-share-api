@@ -38,9 +38,6 @@ public static class Configure
             options.UseNpgsql(connectionString);
         });
 
-        services.AddHealthChecks()
-                .AddDbContextCheck<ApplicationContext>("postgresql");
-
         return services;
     }
 
@@ -51,6 +48,7 @@ public static class Configure
         services.AddScoped<IRentalRepository, RentalRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<INotificationRepository, NotificationRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }

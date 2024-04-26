@@ -5,9 +5,9 @@ using MotoXShare.Domain.Dto.Rental;
 
 namespace MotoXShare.API.Controllers;
 
-[Authorize(Roles = "Admin, User")]
+[Authorize(Roles = "Admin, DeliveryRider")]
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 public class RentalsController(
     ISaveRentalInteractor saveRentalInteractor,
     IGetRentalInteractor getRentalInteractor
@@ -19,7 +19,7 @@ public class RentalsController(
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Create([FromBody] SaveRentalRequestDto param)
+    public async Task<IActionResult> Create(SaveRentalRequestDto param)
     {
         var result = await _saveRentalInteractor.Execute(param);
 
