@@ -5,7 +5,7 @@ using MotoXShare.Domain.Dto.Rental;
 
 namespace MotoXShare.API.Controllers;
 
-[Authorize(Roles = "Admin, User")]
+[Authorize(Roles = "Admin, DeliveryRider")]
 [ApiController]
 [Route("api/v1/[controller]")]
 public class RentalsController(

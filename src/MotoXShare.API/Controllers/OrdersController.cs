@@ -27,7 +27,7 @@ public class OrdersController(
         return Created($"{Request.Path}/{result}", new { });
     }
 
-    [Authorize(Roles = "Admin, User")]
+    [Authorize(Roles = "Admin, DeliveryRider")]
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

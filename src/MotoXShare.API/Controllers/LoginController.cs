@@ -1,31 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MotoXShare.Application.Adapter;
-using MotoXShare.Application.Services;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MotoXShare.Application.Interactor.Interface.User;
 using MotoXShare.Domain.Dto.User;
-using MotoXShare.Infraestructure.Data.Repository.Interface;
 
-namespace MotoXShare.API.Controllers;
-
-[ApiController]
-[Route("api/v1/[controller]")]
-public class LoginController(
-    IUserRepository userRepository,
-    ITokenService tokenService
-) : ControllerBase
+namespace MotoXShare.API.Controllers
 {
-    private readonly IUserRepository _userRepository = userRepository;
-    private readonly ITokenService _tokenService = tokenService;
-
-    [HttpPost]
-    public async Task<IActionResult> Authenticate(AuthenticateUserDto param)
+    [AllowAnonymous]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class LoginController(IAuthenticateUserInteractor authenticateUserInteractor) : ControllerBase
     {
-        var user = await _userRepository.GetSingle(x => x.Username == param.Username && x.Password == x.Password);
+        private readonly IAuthenticateUserInteractor _authenticateUserInteractor = authenticateUserInteractor;
 
-        if (user is null)
-            return NotFound();
+        [HttpPost]
+        public async Task<IActionResult> Authenticate(AuthenticateUserDto param)
+        {
+            var result = await _authenticateUserInteractor.Execute(param);
 
-        var token = _tokenService.GenerateToken(user);
-
-        return Ok(UserAdapter.FromDomain(user, token));
+            return result == default ? NotFound() : Ok(result);
+        }
     }
 }

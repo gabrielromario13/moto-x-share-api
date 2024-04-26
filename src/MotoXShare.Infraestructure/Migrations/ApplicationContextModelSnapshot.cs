@@ -17,7 +17,7 @@ namespace MotoXShare.Infraestructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -32,23 +32,27 @@ namespace MotoXShare.Infraestructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("CNH")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CNHImage")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("CNHType")
                         .HasColumnType("integer");
 
                     b.Property<string>("CNPJ")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeliveryRider");
+                    b.ToTable("DeliveryRider", (string)null);
                 });
 
             modelBuilder.Entity("MotoXShare.Domain.Model.DeliveryRiderNotification", b =>
@@ -58,6 +62,7 @@ namespace MotoXShare.Infraestructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<Guid[]>("DeliveryRidersIds")
+                        .IsRequired()
                         .HasColumnType("uuid[]");
 
                     b.Property<Guid>("OrderId")
@@ -67,7 +72,7 @@ namespace MotoXShare.Infraestructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("DeliveryRiderNotification");
+                    b.ToTable("Notification", (string)null);
                 });
 
             modelBuilder.Entity("MotoXShare.Domain.Model.Motorcycle", b =>
@@ -77,9 +82,11 @@ namespace MotoXShare.Infraestructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Model")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Plate")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("Rented")
@@ -90,7 +97,7 @@ namespace MotoXShare.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Motorcycle");
+                    b.ToTable("Motorcycle", (string)null);
                 });
 
             modelBuilder.Entity("MotoXShare.Domain.Model.Order", b =>
@@ -115,7 +122,7 @@ namespace MotoXShare.Infraestructure.Migrations
 
                     b.HasIndex("DeliveryRiderId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Order", (string)null);
                 });
 
             modelBuilder.Entity("MotoXShare.Domain.Model.Rental", b =>
@@ -153,7 +160,7 @@ namespace MotoXShare.Infraestructure.Migrations
                     b.HasIndex("MotorcycleId")
                         .IsUnique();
 
-                    b.ToTable("Rental");
+                    b.ToTable("Rental", (string)null);
                 });
 
             modelBuilder.Entity("MotoXShare.Domain.Model.User", b =>
@@ -163,23 +170,27 @@ namespace MotoXShare.Infraestructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Role")
-                        .HasColumnType("text");
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("MotoXShare.Domain.Model.DeliveryRiderNotification", b =>

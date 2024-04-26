@@ -2,7 +2,7 @@
 
 public enum OrderStatus
 {
-    Available = 0,
-    Accepted = 1,
-    Delivered = 2
+    Available = 1,
+    Accepted = 2,
+    Delivered = 3
 }
