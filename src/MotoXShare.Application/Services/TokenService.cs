@@ -1,5 +1,4 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using MotoXShare.Domain.Dto.User;
 using MotoXShare.Domain.Model;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -22,11 +21,10 @@ public class TokenService : ITokenService
             }),
             Expires = DateTime.UtcNow.AddHours(8),
             SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(key), 
+                new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature
             )
         };
-
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }

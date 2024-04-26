@@ -19,7 +19,7 @@ public class RentalsController(
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Create([FromBody] SaveRentalRequestDto param)
+    public async Task<IActionResult> Create(SaveRentalRequestDto param)
     {
         var result = await _saveRentalInteractor.Execute(param);
 

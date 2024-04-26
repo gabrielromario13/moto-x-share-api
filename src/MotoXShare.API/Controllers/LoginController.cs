@@ -17,14 +17,12 @@ public class LoginController(
     private readonly ITokenService _tokenService = tokenService;
 
     [HttpPost]
-    public async Task<IActionResult> AuthenticateAsync([FromBody] AuthenticateUserDto param)
+    public async Task<IActionResult> Authenticate(AuthenticateUserDto param)
     {
         var user = await _userRepository.GetSingle(x => x.Username == param.Username && x.Password == x.Password);
 
-        if (user == null)
-        {
+        if (user is null)
             return NotFound();
-        }
 
         var token = _tokenService.GenerateToken(user);
 
