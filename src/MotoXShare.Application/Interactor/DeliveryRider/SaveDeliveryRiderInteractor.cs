@@ -10,8 +10,6 @@ public class SaveDeliveryRiderInteractor(
     SaveDeliveryRiderUseCase saveDeliveryRiderUseCase)
 : InteractorAsync<Guid, SaveDeliveryRiderRequestDto>(unitOfWork), ISaveDeliveryRiderInteractor
 {
-    private readonly SaveDeliveryRiderUseCase _saveDeliveryRiderUseCase = saveDeliveryRiderUseCase;
-
     protected override async Task<Guid> Action(SaveDeliveryRiderRequestDto param) =>
-        await _saveDeliveryRiderUseCase.Action(param);
+        await saveDeliveryRiderUseCase.Action(param);
 }

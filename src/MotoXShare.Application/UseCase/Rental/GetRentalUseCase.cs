@@ -6,15 +6,10 @@ namespace MotoXShare.Application.UseCase.Rental;
 
 public class GetRentalUseCase(IRentalRepository repository)
 {
-    private readonly IRentalRepository _repository = repository;
-
     public virtual async Task<GetRentalResponseDto> Action(GetRentalRequestDto param)
     {
-        var rental = await _repository.GetSingle(r => r.Id == param.Id);
+        var rental = await repository.GetSingle(r => r.Id == param.Id);
 
-        if (rental is null)
-            return default;
-
-        return RentalAdapter.FromDomain(rental, param.ReturnDate);
+        return rental is null ? default : RentalAdapter.FromDomain(rental, param.ReturnDate);
     }
 }

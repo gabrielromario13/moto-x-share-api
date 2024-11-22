@@ -10,8 +10,6 @@ public class SaveRentalInteractor(
     SaveRentalUseCase saveRentalUseCase
 ) : InteractorAsync<Guid, SaveRentalRequestDto>(unitOfWork), ISaveRentalInteractor
 {
-    private readonly SaveRentalUseCase _saveRentalUseCase = saveRentalUseCase;
-
     protected override async Task<Guid> Action(SaveRentalRequestDto param) =>
-        await _saveRentalUseCase.Action(param);
+        await saveRentalUseCase.Action(param);
 }

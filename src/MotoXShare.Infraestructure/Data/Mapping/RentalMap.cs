@@ -14,7 +14,7 @@ public class RentalMap : IEntityTypeConfiguration<Rental>
         builder.Property(b => b.PlanType).IsRequired();
         builder.Property(b => b.StartDate).IsRequired();
         builder.Property(b => b.ExpectedEndDate).IsRequired();
-        builder.Property(b => b.EndDate).IsRequired();
+        builder.Property(b => b.RentalPrice).IsRequired();
         builder.Property(b => b.EndDate).IsRequired();
     }
 }

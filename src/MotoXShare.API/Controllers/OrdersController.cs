@@ -13,26 +13,23 @@ public class OrdersController(
     IUpdateOrderInteractor updateOrderInteractor
 ) : ControllerBase
 {
-    private readonly ISaveOrderInteractor _saveOrderInteractor = saveOrderInteractor;
-    private readonly IUpdateOrderInteractor _updateOrderInteractor = updateOrderInteractor;
-
     [Authorize(Roles = "Admin")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create(SaveOrderRequestDto param)
     {
-        var result = await _saveOrderInteractor.Execute(param);
+        var result = await saveOrderInteractor.Execute(param);
 
         return Created($"{Request.Path}/{result}", new { });
     }
 
     [Authorize(Roles = "Admin, DeliveryRider")]
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(Guid id, [Required] Guid deliveryRiderId)
     {
-        var result = await _updateOrderInteractor.Execute(new(id, deliveryRiderId));
+        var result = await updateOrderInteractor.Execute(new(id, deliveryRiderId));
 
         return result ? NoContent() : NotFound();
     }

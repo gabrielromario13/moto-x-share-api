@@ -9,18 +9,15 @@ namespace MotoXShare.Application.UseCase.User;
 public class AuthenticateUserUseCase(
     IUserRepository repository, ITokenService tokenService)
 {
-    private readonly IUserRepository _repository = repository;
-    private readonly ITokenService _tokenService = tokenService;
-
     public virtual async Task<GetUserResponseDto> Action(AuthenticateUserDto param)
     {
         var password = HashUtils.HashPassword(param.Password);
-        var user = await _repository.GetSingle(x => x.Username == param.Username && x.Password == password);
+        var user = await repository.GetSingle(x => x.Username == param.Username && x.Password == password);
 
         if (user is null)
             return default;
 
-        var token = _tokenService.GenerateToken(user);
+        var token = tokenService.GenerateToken(user);
 
         return UserAdapter.FromDomain(user, token);
     }

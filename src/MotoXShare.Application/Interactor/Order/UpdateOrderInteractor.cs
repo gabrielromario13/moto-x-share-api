@@ -10,8 +10,6 @@ public class UpdateOrderInteractor(
     UpdateOrderUseCase updateOrderUseCase
 ) : InteractorAsync<bool, UpdateOrderRequestDto>(unitOfWork), IUpdateOrderInteractor
 {
-    private readonly UpdateOrderUseCase _updateOrderUseCase = updateOrderUseCase;
-
     protected override async Task<bool> Action(UpdateOrderRequestDto param) =>
-        await _updateOrderUseCase.Action(param);
+        await updateOrderUseCase.Action(param);
 }

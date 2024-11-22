@@ -10,8 +10,6 @@ public class GetRentalInteractor(
     GetRentalUseCase getRentalUseCase
 ) : InteractorAsync<GetRentalResponseDto, GetRentalRequestDto>(unitOfWork), IGetRentalInteractor
 {
-    private readonly GetRentalUseCase _getRentalUseCase = getRentalUseCase;
-
     protected override async Task<GetRentalResponseDto> Action(GetRentalRequestDto param) =>
-        await _getRentalUseCase.Action(param);
+        await getRentalUseCase.Action(param);
 }

@@ -10,9 +10,8 @@ namespace MotoXShare.Application.Subscribers;
 
 public class OrdersCreatedSubscriber : BackgroundService
 {
-    private readonly IConnection _connection;
     private readonly IModel _channel;
-    private const string QUEUE_NAME = "orders-created";
+    private const string QueueName = "orders-created";
     private readonly SaveNotificationUseCase _saveNotificationUseCase;
 
     public OrdersCreatedSubscriber(IServiceProvider serviceProvider)
@@ -22,10 +21,10 @@ public class OrdersCreatedSubscriber : BackgroundService
             HostName = "localhost"
         };
 
-        _connection = connectionFactory.CreateConnection();
-        _channel = _connection.CreateModel();
+        var connection = connectionFactory.CreateConnection();
+        _channel = connection.CreateModel();
 
-        _channel.QueueDeclare(QUEUE_NAME, false, false);
+        _channel.QueueDeclare(QueueName, false, false);
 
         _saveNotificationUseCase = serviceProvider.CreateScope()
             .ServiceProvider.GetRequiredService<SaveNotificationUseCase>();
@@ -50,7 +49,7 @@ public class OrdersCreatedSubscriber : BackgroundService
             _channel.BasicAck(eventArgs.DeliveryTag, false);
         };
 
-        _channel.BasicConsume(QUEUE_NAME, false, consumer);
+        _channel.BasicConsume(QueueName, false, consumer);
 
         return Task.CompletedTask;
     }

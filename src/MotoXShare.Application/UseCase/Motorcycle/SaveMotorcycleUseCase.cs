@@ -6,13 +6,11 @@ namespace MotoXShare.Application.UseCase.Motorcycle;
 
 public class SaveMotorcycleUseCase(IMotorcycleRepository repository)
 {
-    private readonly IMotorcycleRepository _repository = repository;
-
     public virtual async Task<Guid> Action(SaveMotorcycleRequestDto param)
     {
         var motorcycle = MotorcycleAdapter.ToDomain(param);
 
-        await _repository.Add(motorcycle);
+        await repository.Add(motorcycle);
 
         return motorcycle.Id;
     }

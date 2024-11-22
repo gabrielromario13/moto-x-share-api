@@ -10,8 +10,6 @@ public class SaveMotorcycleInteractor(
     SaveMotorcycleUseCase saveMotorcycleUseCase
 ) : InteractorAsync<Guid, SaveMotorcycleRequestDto>(unitOfWork), ISaveMotorcycleInteractor
 {
-    private readonly SaveMotorcycleUseCase _saveMotorcycleUseCase = saveMotorcycleUseCase;
-
     protected override async Task<Guid> Action(SaveMotorcycleRequestDto param) =>
-        await _saveMotorcycleUseCase.Action(param);
+        await saveMotorcycleUseCase.Action(param);
 }

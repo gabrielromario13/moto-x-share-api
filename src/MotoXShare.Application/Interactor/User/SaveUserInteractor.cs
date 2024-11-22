@@ -10,8 +10,6 @@ public class SaveUserInteractor(
     SaveUserUseCase saveUserUseCase
 ) : InteractorAsync<Guid, SaveUserRequestDto>(unitOfWork), ISaveUserInteractor
 {
-    private readonly SaveUserUseCase _saveUserUseCase = saveUserUseCase;
-
     protected override async Task<Guid> Action(SaveUserRequestDto param) =>
-        await _saveUserUseCase.Action(param);
+        await saveUserUseCase.Action(param);
 }

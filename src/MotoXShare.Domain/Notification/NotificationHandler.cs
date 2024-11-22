@@ -4,10 +4,7 @@ namespace MotoXShare.Domain.Notification;
 
 public class NotificationHandler
 {
-    private readonly List<Notification> _notifications;
-
-    public NotificationHandler() =>
-        _notifications = [];
+    private readonly List<Notification> _notifications = [];
 
     public virtual void Add(Notification notification) =>
        _notifications.Add(notification);
@@ -21,9 +18,10 @@ public class NotificationHandler
             return null;
 
         var errors = new List<ErrorsResponseDetail>(_notifications.Count);
-
-        foreach (var notification in _notifications)
-            errors.Add(new(notification.Error, notification.Detail));
+        
+        errors.AddRange(_notifications
+            .Select(notification => 
+                new ErrorsResponseDetail(notification.Error, notification.Detail)));
 
         return new(instance, traceId, errors);
     }

@@ -10,8 +10,6 @@ public class GetNotificationInteractor(
     GetNotificationUseCase getNotificationUseCase
 ) : InteractorAsync<GetNotificationResponseDto, Guid>(unitOfWork), IGetNotificationInteractor
 {
-    private readonly GetNotificationUseCase _getNotificationUseCase = getNotificationUseCase;
-
     protected override async Task<GetNotificationResponseDto> Action(Guid param) =>
-        await _getNotificationUseCase.Action(param);
+        await getNotificationUseCase.Action(param);
 }

@@ -7,22 +7,20 @@ public abstract class InteractorAsync<TResult, TParam>(
     IUnitOfWorkAsync unitOfWork
 ) : IInteractorAsync<TResult, TParam>
 {
-    private readonly IUnitOfWorkAsync _unitOfWork = unitOfWork;
-
     public async Task<TResult> Execute(TParam param)
     {
-        await _unitOfWork.BeginUnitAsync();
+        await unitOfWork.BeginUnitAsync();
 
         TResult result;
 
         try
         {
             result = await Action(param);
-            await _unitOfWork.CommitUnitAsync();
+            await unitOfWork.CommitUnitAsync();
         }
         catch
         {
-            await _unitOfWork.RollbackUnitAsync();
+            await unitOfWork.RollbackUnitAsync();
             throw;
         }
 
