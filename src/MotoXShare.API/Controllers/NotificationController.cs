@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MotoXShare.Application.Interactor.Interface.Notification;
-using MotoXShare.Domain.Dto.Notification;
+using MotoXShare.Application.Features.Notifications;
 
 namespace MotoXShare.API.Controllers;
 

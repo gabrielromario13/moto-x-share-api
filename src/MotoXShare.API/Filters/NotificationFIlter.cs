@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using MotoXShare.Domain.Notification;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc.Filters;
+using MotoXShare.Application.Features.Notifications;
 
 namespace MotoXShare.API.Filters;
 

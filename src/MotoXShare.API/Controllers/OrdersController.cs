@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MotoXShare.Application.Interactor.Interface.Order;
-using MotoXShare.Domain.Dto.Order;
-using System.ComponentModel.DataAnnotations;
+using MotoXShare.Application.Features.Orders;
 
 namespace MotoXShare.API.Controllers;
 

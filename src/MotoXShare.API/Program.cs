@@ -1,3 +1,4 @@
+using System.Text;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -5,9 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MotoXShare.API.Filters;
 using MotoXShare.Application;
-using MotoXShare.Domain.Validators;
-using MotoXShare.Infraestructure;
-using System.Text;
+using MotoXShare.Application.Features.DeliveryRiders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,8 +39,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
-builder.Services.ConfigureApplication();
-builder.Services.ConfigureInfrastructure(builder.Configuration);
+builder.Services.ConfigureApplication(builder.Configuration);
 builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());
 builder.Services.Configure<RouteOptions>(options =>
 {

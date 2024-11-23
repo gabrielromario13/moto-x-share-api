@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MotoXShare.Application.Interactor.Interface.Rental;
-using MotoXShare.Domain.Dto.Rental;
+using MotoXShare.Application.Features.Rentals;
 
 namespace MotoXShare.API.Controllers;
 
