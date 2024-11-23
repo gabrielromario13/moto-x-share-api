@@ -1,41 +1,62 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using MotoXShare.Application.Interactor.DeliveryRider;
-using MotoXShare.Application.Interactor.Interface;
-using MotoXShare.Application.Interactor.Interface.DeliveryRider;
-using MotoXShare.Application.Interactor.Interface.Motorcycle;
-using MotoXShare.Application.Interactor.Interface.Notification;
-using MotoXShare.Application.Interactor.Interface.Order;
-using MotoXShare.Application.Interactor.Interface.Rental;
-using MotoXShare.Application.Interactor.Interface.User;
-using MotoXShare.Application.Interactor.Motorcycle;
-using MotoXShare.Application.Interactor.Notification;
-using MotoXShare.Application.Interactor.Order;
-using MotoXShare.Application.Interactor.Rental;
-using MotoXShare.Application.Interactor.User;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using MotoXShare.Application.Data.Context;
+using MotoXShare.Application.Features.DeliveryRiders;
+using MotoXShare.Application.Features.Motorcycles;
+using MotoXShare.Application.Features.Notifications;
+using MotoXShare.Application.Features.Orders;
+using MotoXShare.Application.Features.Rentals;
+using MotoXShare.Application.Features.Users;
+using MotoXShare.Application.Messaging;
 using MotoXShare.Application.Services;
-using MotoXShare.Application.Subscribers;
-using MotoXShare.Application.UseCase.DeliveryRider;
-using MotoXShare.Application.UseCase.Motorcycle;
-using MotoXShare.Application.UseCase.Notification;
-using MotoXShare.Application.UseCase.Order;
-using MotoXShare.Application.UseCase.Rental;
-using MotoXShare.Application.UseCase.User;
-using MotoXShare.Domain.Notification;
-using MotoXShare.Infraestructure.Messaging;
+using MotoXShare.Application.UnitOfWork;
+using MotoXShare.Domain.Exceptions;
 
 namespace MotoXShare.Application;
 
 public static class Configure
 {
-    public static IServiceCollection ConfigureApplication(this IServiceCollection services)
+    public static IServiceCollection ConfigureApplication(this IServiceCollection services, IConfiguration configuration)
     {
         services
             .AddInteractors()
             .AddUseCase()
             .AddExtensions()
-            .AddMessageBus();
+            .AddMessageBus()
+            .ConfigurePostgreSql(configuration)
+            .AddRepositories();
 
         return services;
+    }private static IServiceCollection ConfigurePostgreSql(this IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+        if (string.IsNullOrWhiteSpace(connectionString))
+            throw new CustomException("Connection string cannot be empty.");
+
+        var options = new DbContextOptionsBuilder<ApplicationContext>();
+        options.UseNpgsql(connectionString);
+        _ = new ApplicationContext(options.Options, true);
+
+        services.AddScoped<EntityFrameworkUnitOfWorkAsync>();
+
+        services.AddDbContext<ApplicationContext>(builder =>
+        {
+            builder.UseNpgsql(connectionString);
+        });
+
+        return services;
+    }
+
+    private static void AddRepositories(this IServiceCollection services)
+    {
+        services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
+        services.AddScoped<IDeliveryRiderRepository, DeliveryRiderRepository>();
+        services.AddScoped<IRentalRepository, RentalRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<INotificationRepository, NotificationRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
     }
 
     private static IServiceCollection AddInteractors(this IServiceCollection services)

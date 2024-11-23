@@ -1,5 +1,4 @@
-﻿using MotoXShare.Domain.Dto.User;
-using MotoXShare.Domain.Model;
+﻿using MotoXShare.Application.Domain.Model;
 
 namespace MotoXShare.Application.Services;
 

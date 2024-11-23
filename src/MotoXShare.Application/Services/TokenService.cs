@@ -1,8 +1,8 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using MotoXShare.Domain.Model;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using MotoXShare.Application.Domain.Model;
 
 namespace MotoXShare.Application.Services;
 
