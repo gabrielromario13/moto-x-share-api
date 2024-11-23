@@ -11,16 +11,14 @@ namespace MotoXShare.Infraestructure;
 
 public static class Configure
 {
-    public static IServiceCollection ConfigureInfraestructure(this IServiceCollection services, IConfiguration configuration)
+    public static void ConfigureInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services
-            .ConfigurePostgreSQL(configuration)
+            .ConfigurePostgreSql(configuration)
             .AddRepositories();
-
-        return services;
     }
 
-    private static IServiceCollection ConfigurePostgreSQL(this IServiceCollection services, IConfiguration configuration)
+    private static IServiceCollection ConfigurePostgreSql(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
@@ -33,15 +31,15 @@ public static class Configure
 
         services.AddScoped<EntityFrameworkUnitOfWorkAsync>();
 
-        services.AddDbContext<ApplicationContext>(options =>
+        services.AddDbContext<ApplicationContext>(builder =>
         {
-            options.UseNpgsql(connectionString);
+            builder.UseNpgsql(connectionString);
         });
 
         return services;
     }
 
-    private static IServiceCollection AddRepositories(this IServiceCollection services)
+    private static void AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
         services.AddScoped<IDeliveryRiderRepository, DeliveryRiderRepository>();
@@ -49,7 +47,5 @@ public static class Configure
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<INotificationRepository, NotificationRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
-
-        return services;
     }
 }
