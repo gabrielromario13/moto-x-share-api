@@ -10,8 +10,6 @@ public class AuthenticateUserInteractor(
     AuthenticateUserUseCase authenticateUserUseCase
 ) : InteractorAsync<GetUserResponseDto, AuthenticateUserDto>(unitOfWork), IAuthenticateUserInteractor
 {
-    private readonly AuthenticateUserUseCase _authenticateUserUseCase = authenticateUserUseCase;
-
     protected override async Task<GetUserResponseDto> Action(AuthenticateUserDto param) =>
-        await _authenticateUserUseCase.Action(param);
+        await authenticateUserUseCase.Action(param);
 }

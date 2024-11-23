@@ -9,8 +9,6 @@ public class DeleteMotorcycleInteractor(
     DeleteMotorcycleUseCase deleteMotorcycleUseCase
 ) : InteractorAsync<bool, Guid>(unitOfWork), IDeleteMotorcycleInteractor
 {
-    private readonly DeleteMotorcycleUseCase _deleteMotorcycleUseCase = deleteMotorcycleUseCase;
-
     protected override async Task<bool> Action(Guid param) =>
-        await _deleteMotorcycleUseCase.Action(param);
+        await deleteMotorcycleUseCase.Action(param);
 }

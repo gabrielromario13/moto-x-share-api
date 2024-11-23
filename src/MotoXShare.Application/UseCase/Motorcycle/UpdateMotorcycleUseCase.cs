@@ -5,18 +5,16 @@ namespace MotoXShare.Application.UseCase.Motorcycle;
 
 public class UpdateMotorcycleUseCase(IMotorcycleRepository repository)
 {
-    private readonly IMotorcycleRepository _repository = repository;
-
     public virtual async Task<bool> Action(UpdateMotorcycleRequestDto param)
     {
-        var motorcycle = await _repository.GetById(param.Id);
+        var motorcycle = await repository.GetById(param.Id);
 
         if (motorcycle is null)
             return false;
 
         motorcycle.Plate = param.Plate;
 
-        await _repository.Update(motorcycle);
+        await repository.Update(motorcycle);
 
         return true;
     }

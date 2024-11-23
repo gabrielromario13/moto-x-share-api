@@ -9,29 +9,25 @@ public class UpdateOrderUseCase(
     INotificationRepository notificationRepository,
     NotificationHandler notificationHandler)
 {
-    private readonly IOrderRepository _repository = repository;
-    private readonly INotificationRepository _notificationRepository = notificationRepository;
-    private readonly NotificationHandler _notificationHandler = notificationHandler;
-
     public virtual async Task<bool> Action(UpdateOrderRequestDto param)
     {
-        var order = await _repository.GetById(param.Id);
+        var order = await repository.GetById(param.Id);
 
         if (order is null)
             return false;
 
-        var notifiedDeliveryRider = await _notificationRepository
+        var notifiedDeliveryRider = await notificationRepository
             .CheckIfDeliveryRiderWasNotified(param.Id, param.DeliveryRiderId);
 
         if (!notifiedDeliveryRider)
         {
-            _notificationHandler.Add(new("Somente entregadores notificados podem aceitar pedidos.", "UnnotifiedDeliveryRider"));
+            notificationHandler.Add(new("Somente entregadores notificados podem aceitar pedidos.", "UnnotifiedDeliveryRider"));
             return false;
         }
 
         order.Update(param.DeliveryRiderId, order.Status);
 
-        await _repository.Update(order);
+        await repository.Update(order);
 
         return true;
     }

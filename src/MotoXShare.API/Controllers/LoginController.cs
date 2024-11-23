@@ -3,21 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 using MotoXShare.Application.Interactor.Interface.User;
 using MotoXShare.Domain.Dto.User;
 
-namespace MotoXShare.API.Controllers
+namespace MotoXShare.API.Controllers;
+
+[AllowAnonymous]
+[Route("api/[controller]")]
+[ApiController]
+public class LoginController(IAuthenticateUserInteractor authenticateUserInteractor) : ControllerBase
 {
-    [AllowAnonymous]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class LoginController(IAuthenticateUserInteractor authenticateUserInteractor) : ControllerBase
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(GetUserResponseDto), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Authenticate(AuthenticateUserDto param)
     {
-        private readonly IAuthenticateUserInteractor _authenticateUserInteractor = authenticateUserInteractor;
+        var result = await authenticateUserInteractor.Execute(param);
 
-        [HttpPost]
-        public async Task<IActionResult> Authenticate(AuthenticateUserDto param)
-        {
-            var result = await _authenticateUserInteractor.Execute(param);
-
-            return result == default ? NotFound() : Ok(result);
-        }
+        return result == default ? NotFound() : Ok(result);
     }
 }

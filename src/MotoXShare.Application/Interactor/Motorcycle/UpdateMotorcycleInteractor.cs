@@ -10,8 +10,6 @@ public class UpdateMotorcycleInteractor(
     UpdateMotorcycleUseCase updateMotorcycleUseCase
 ) : InteractorAsync<bool, UpdateMotorcycleRequestDto>(unitOfWork), IUpdateMotorcycleInteractor
 {
-    private readonly UpdateMotorcycleUseCase _updateMotorcycleUseCase = updateMotorcycleUseCase;
-
     protected override async Task<bool> Action(UpdateMotorcycleRequestDto param) =>
-        await _updateMotorcycleUseCase.Action(param);
+        await updateMotorcycleUseCase.Action(param);
 }

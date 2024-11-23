@@ -13,19 +13,15 @@ public class SaveNotificationUseCase(
     INotificationRepository repository
 )
 {
-    private readonly IOrderRepository _orderRepository = orderRepository;
-    private readonly IDeliveryRiderRepository _deliveryRiderRepository = deliveryRiderRepository;
-    private readonly INotificationRepository _repository = repository;
-
     public virtual async Task<bool> Action(Guid orderId)
     {
         var includeProperties = GetExpression();
 
-        var unavailableDeliveryRidersIds = (await _orderRepository
+        var unavailableDeliveryRidersIds = (await orderRepository
             .Get(o => o.Status == OrderStatus.Accepted))
             .Select(o => o.DeliveryRiderId);
 
-        var deliveryRidersIds = (await _deliveryRiderRepository
+        var deliveryRidersIds = (await deliveryRiderRepository
             .Get(d => d.Rental != null && !unavailableDeliveryRidersIds.Contains(d.Id), includeProperties))
             .Select(d => d.Id);
 
@@ -36,7 +32,7 @@ public class SaveNotificationUseCase(
 
         await unitOfWork.BeginUnitAsync();
 
-        await _repository.Add(notification);
+        await repository.Add(notification);
 
         await unitOfWork.CommitUnitAsync();
 

@@ -8,8 +8,8 @@ public class UpdateDeliveryRiderUseCase
 {
     private readonly IDeliveryRiderRepository _repository;
     private readonly NotificationHandler _notificationHandler;
-    private static readonly string PATH = @"C:\CnhImages\";
-    private readonly string[] ValidExtensions = [".png", ".bmp"];
+    private const string Path = @"C:\CnhImages\";
+    private readonly string[] _validExtensions = [".png", ".bmp"];
 
     public UpdateDeliveryRiderUseCase(
         IDeliveryRiderRepository repository,
@@ -18,7 +18,7 @@ public class UpdateDeliveryRiderUseCase
         _repository = repository;
         _notificationHandler = notificationHandler;
 
-        Directory.CreateDirectory(PATH);
+        Directory.CreateDirectory(Path);
     }
 
     public virtual async Task<bool> Action(UpdateDeliveryRiderRequestDto param)
@@ -30,7 +30,7 @@ public class UpdateDeliveryRiderUseCase
 
         var fileName = param.CnhImage.FileName;
 
-        var validExtension = ValidExtensions.Contains(Path.GetExtension(fileName).ToLower());
+        var validExtension = _validExtensions.Contains(System.IO.Path.GetExtension(fileName).ToLower());
 
         if (!validExtension)
         {
@@ -38,9 +38,9 @@ public class UpdateDeliveryRiderUseCase
             return false;
         }
 
-        using (var stream = new FileStream(PATH + fileName, FileMode.Create))
+        await using (var stream = new FileStream(Path + fileName, FileMode.Create))
         {
-            param.CnhImage.CopyTo(stream);
+            await param.CnhImage.CopyToAsync(stream);
         }
 
         deliveryRider.CNHImage = fileName;

@@ -11,8 +11,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddValidatorsFromAssemblyContaining<SaveDeliveryRiderValidator>();
 builder.Services.AddFluentValidationAutoValidation();
@@ -43,7 +41,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 builder.Services.ConfigureApplication();
-builder.Services.ConfigureInfraestructure(builder.Configuration);
+builder.Services.ConfigureInfrastructure(builder.Configuration);
 builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());
 builder.Services.Configure<RouteOptions>(options =>
 {
@@ -70,7 +68,6 @@ builder.Services.AddAuthentication(x =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

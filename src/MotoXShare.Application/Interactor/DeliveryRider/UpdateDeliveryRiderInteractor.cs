@@ -10,8 +10,6 @@ public class UpdateDeliveryRiderInteractor(
     UpdateDeliveryRiderUseCase updateDeliveryRiderUseCase
 ) : InteractorAsync<bool, UpdateDeliveryRiderRequestDto>(unitOfWork), IUpdateDeliveryRiderInteractor
 {
-    private readonly UpdateDeliveryRiderUseCase _updateDeliveryRiderUseCase = updateDeliveryRiderUseCase;
-
     protected override async Task<bool> Action(UpdateDeliveryRiderRequestDto param) =>
-        await _updateDeliveryRiderUseCase.Action(param);
+        await updateDeliveryRiderUseCase.Action(param);
 }

@@ -7,19 +7,13 @@ namespace MotoXShare.Application.UseCase.Motorcycle;
 
 public class GetMotorcyclesUseCase(IMotorcycleRepository repository)
 {
-    private readonly IMotorcycleRepository _repository = repository;
-
     public virtual async Task<IEnumerable<GetMotorcycleResponseDto>> Action(
-        Expression<Func<Domain.Model.Motorcycle, bool>> param = null
-    )
+        Expression<Func<Domain.Model.Motorcycle, bool>> param = null)
     {
-        var motorcyclesDb = await _repository.Get(param);
+        var motorcyclesDb = await repository.Get(param);
 
         var motorcycles = motorcyclesDb.Select(MotorcycleAdapter.FromDomain);
 
-        if (!motorcycles.Any())
-            return Enumerable.Empty<GetMotorcycleResponseDto>();
-
-        return motorcycles;
+        return motorcycles.Any() ? motorcycles : [];
     }
 }

@@ -10,8 +10,6 @@ public class SaveOrderInteractor(
     SaveOrderUseCase saveOrderUseCase
 ) : InteractorAsync<Guid, SaveOrderRequestDto>(unitOfWork), ISaveOrderInteractor
 {
-    private readonly SaveOrderUseCase _saveOrderUseCase = saveOrderUseCase;
-
     protected override async Task<Guid> Action(SaveOrderRequestDto param) =>
-        await _saveOrderUseCase.Action(param);
+        await saveOrderUseCase.Action(param);
 }

@@ -13,25 +13,21 @@ public class DeliveryRidersController(
     IUpdateDeliveryRiderInteractor updateDeliveryRiderInteractor
 ) : ControllerBase
 {
-    private readonly ISaveDeliveryRiderInteractor _saveDeliveryRiderInteractor = saveDeliveryRiderInteractor;
-    private readonly IUpdateDeliveryRiderInteractor _updateDeliveryRiderInteractor = updateDeliveryRiderInteractor;
-
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create(SaveDeliveryRiderRequestDto param)
     {
-        var result = await _saveDeliveryRiderInteractor.Execute(param);
+        var result = await saveDeliveryRiderInteractor.Execute(param);
 
         return Created($"{Request.Path}/{result}", new { });
     }
 
-    [HttpPatch("{id}")]
+    [HttpPatch("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateCnhImage(Guid id, IFormFile cnhImage)
     {
-        var result = await _updateDeliveryRiderInteractor.Execute(new(id, cnhImage));
+        var result = await updateDeliveryRiderInteractor.Execute(new(id, cnhImage));
 
         return result ? NoContent() : NotFound();
     }

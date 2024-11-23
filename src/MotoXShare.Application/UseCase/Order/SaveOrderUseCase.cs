@@ -9,16 +9,13 @@ public class SaveOrderUseCase(
     IOrderRepository repository,
     IRabbitMqService messageBusService)
 {
-    private readonly IOrderRepository _repository = repository;
-    private readonly IRabbitMqService _messageBusService = messageBusService;
-
     public virtual async Task<Guid> Action(SaveOrderRequestDto param)
     {
         var order = OrderAdapter.ToDomain(param);
 
-        await _repository.Add(order);
+        await repository.Add(order);
 
-        _messageBusService.Publish(order.Id);
+        messageBusService.Publish(order.Id);
 
         return order.Id;
     }

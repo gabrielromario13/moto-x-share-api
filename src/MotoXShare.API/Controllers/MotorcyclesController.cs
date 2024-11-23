@@ -16,17 +16,11 @@ public class MotorcyclesController(
     IDeleteMotorcycleInteractor deleteMotorcycleInteractor
 ) : ControllerBase
 {
-    private readonly ISaveMotorcycleInteractor _saveMotorcycleInteractor = saveMotorcycleInteractor;
-    private readonly IGetMotorcyclesInteractor _getMotorcyclesInteractor = getMotorcyclesInteractor;
-    private readonly IUpdateMotorcycleInteractor _updateMotorcycleInteractor = updateMotorcycleInteractor;
-    private readonly IDeleteMotorcycleInteractor _deleteMotorcycleInteractor = deleteMotorcycleInteractor;
-
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create(SaveMotorcycleRequestDto param)
     {
-        var result = await _saveMotorcycleInteractor.Execute(param);
+        var result = await saveMotorcycleInteractor.Execute(param);
 
         return Created($"{Request.Path}/{result}", string.Empty);
     }
@@ -35,17 +29,17 @@ public class MotorcyclesController(
     [ProducesResponseType(typeof(IEnumerable<GetMotorcycleResponseDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get([FromQuery] GetMotorcycleRequestDto param)
     {
-        var result = await _getMotorcyclesInteractor.Execute(param);
+        var result = await getMotorcyclesInteractor.Execute(param);
 
         return Ok(result);
     }
 
-    [HttpPatch("{id}")]
+    [HttpPatch("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdatePlate(Guid id, [FromQuery] string plate)
     {
-        var result = await _updateMotorcycleInteractor.Execute(new(id, plate));
+        var result = await updateMotorcycleInteractor.Execute(new(id, plate));
 
         return result ? NoContent() : NotFound();
     }
@@ -55,7 +49,7 @@ public class MotorcyclesController(
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var result = await _deleteMotorcycleInteractor.Execute(id);
+        var result = await deleteMotorcycleInteractor.Execute(id);
 
         return result ? Ok() : NotFound();
     }

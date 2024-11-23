@@ -10,14 +10,12 @@ namespace MotoXShare.API.Controllers;
 [Route("api/v1/[controller]")]
 public class NotificationsController(IGetNotificationInteractor getNotificationInteractor) : ControllerBase
 {
-    private readonly IGetNotificationInteractor _getNotificationInteractor = getNotificationInteractor;
-
-    [HttpGet("{orderId}")]
+    [HttpGet("{orderId:guid}")]
     [ProducesResponseType(typeof(GetNotificationResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByOrderId(Guid orderId)
     {
-        var result = await _getNotificationInteractor.Execute(orderId);
+        var result = await getNotificationInteractor.Execute(orderId);
 
         return result == default ? NotFound() : Ok(result);
     }
