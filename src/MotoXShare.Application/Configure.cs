@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MotoXShare.Application.Data.Context;
 using MotoXShare.Application.Features.DeliveryRiders;
 using MotoXShare.Application.Features.Motorcycles;
 using MotoXShare.Application.Features.Notifications;
@@ -11,6 +10,8 @@ using MotoXShare.Application.Features.Users;
 using MotoXShare.Application.Messaging;
 using MotoXShare.Application.Services;
 using MotoXShare.Application.UnitOfWork;
+using MotoXShare.Core.Data.Context;
+using MotoXShare.Core.Features.DeliveryRiders;
 using MotoXShare.Domain.Exceptions;
 
 namespace MotoXShare.Application;
@@ -28,20 +29,21 @@ public static class Configure
             .AddRepositories();
 
         return services;
-    }private static IServiceCollection ConfigurePostgreSql(this IServiceCollection services, IConfiguration configuration)
+    }
+    private static IServiceCollection ConfigurePostgreSql(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         if (string.IsNullOrWhiteSpace(connectionString))
             throw new CustomException("Connection string cannot be empty.");
 
-        var options = new DbContextOptionsBuilder<ApplicationContext>();
+        var options = new DbContextOptionsBuilder<AppDbContext>();
         options.UseNpgsql(connectionString);
-        _ = new ApplicationContext(options.Options, true);
+        _ = new AppDbContext(options.Options, true);
 
         services.AddScoped<EntityFrameworkUnitOfWorkAsync>();
 
-        services.AddDbContext<ApplicationContext>(builder =>
+        services.AddDbContext<AppDbContext>(builder =>
         {
             builder.UseNpgsql(connectionString);
         });

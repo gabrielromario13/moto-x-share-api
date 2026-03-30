@@ -1,9 +1,9 @@
-﻿using System.Linq.Expressions;
-using MotoXShare.Application.Domain.Enums;
-using MotoXShare.Application.Domain.Model;
+﻿using MotoXShare.Application.Domain.Enums;
 using MotoXShare.Application.Features.DeliveryRiders;
 using MotoXShare.Application.Features.Orders;
 using MotoXShare.Application.UnitOfWork;
+using MotoXShare.Core.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace MotoXShare.Application.Features.Notifications;
 

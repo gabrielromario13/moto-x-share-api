@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MotoXShare.Application.Features.Notifications;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
-using MotoXShare.Application.Features.Notifications;
 
 namespace MotoXShare.Application.Messaging;
 

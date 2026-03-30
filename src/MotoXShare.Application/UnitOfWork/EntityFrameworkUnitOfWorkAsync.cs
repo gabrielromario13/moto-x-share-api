@@ -1,11 +1,11 @@
-﻿using MotoXShare.Application.Data.Context;
-using MotoXShare.Application.UnitOfWork.Base;
+﻿using MotoXShare.Application.UnitOfWork.Base;
+using MotoXShare.Core.Data.Context;
 
 namespace MotoXShare.Application.UnitOfWork;
 
-public class EntityFrameworkUnitOfWorkAsync(ApplicationContext context) : UnitOfWorkAsync
+public class EntityFrameworkUnitOfWorkAsync(AppDbContext context) : UnitOfWorkAsync
 {
-    private readonly ApplicationContext _context = context ?? throw new ArgumentNullException(nameof(context));
+    private readonly AppDbContext _context = context ?? throw new ArgumentNullException(nameof(context));
 
     protected override async Task OnBeginUnitAsync()
     {

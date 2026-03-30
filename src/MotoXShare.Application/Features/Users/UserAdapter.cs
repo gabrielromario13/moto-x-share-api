@@ -1,6 +1,6 @@
 ﻿using MotoXShare.Application.Domain.Enums;
-using MotoXShare.Application.Domain.Model;
 using MotoXShare.Application.Hash;
+using MotoXShare.Core.Domain.Entities;
 
 namespace MotoXShare.Application.Features.Users;
 

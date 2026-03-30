@@ -1,5 +1,5 @@
-﻿using System.Linq.Expressions;
-using MotoXShare.Application.Domain.Model;
+﻿using MotoXShare.Core.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace MotoXShare.Application.Features.Motorcycles;
 

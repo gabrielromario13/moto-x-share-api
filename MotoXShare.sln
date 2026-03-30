@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{04766FA1-60EF-4FF8-BEFE-94B39B9C68FA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotoXShare.Application", "src\MotoXShare.Application\MotoXShare.Application.csproj", "{145B418E-06BC-46BA-8829-50E5D8CFFDFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotoXShare.Core", "src\MotoXShare.Application\MotoXShare.Core.csproj", "{145B418E-06BC-46BA-8829-50E5D8CFFDFF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotoXShare.API", "src\MotoXShare.API\MotoXShare.API.csproj", "{77E9F565-8AAD-4E5A-B841-EADDB0C4E186}"
 EndProject

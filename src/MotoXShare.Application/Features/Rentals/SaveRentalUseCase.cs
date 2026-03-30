@@ -1,7 +1,7 @@
-﻿using MotoXShare.Application.Domain.Model;
-using MotoXShare.Application.Features.DeliveryRiders;
+﻿using MotoXShare.Application.Features.DeliveryRiders;
 using MotoXShare.Application.Features.Motorcycles;
 using MotoXShare.Application.Features.Notifications;
+using MotoXShare.Core.Domain.Entities;
 
 namespace MotoXShare.Application.Features.Rentals;
 

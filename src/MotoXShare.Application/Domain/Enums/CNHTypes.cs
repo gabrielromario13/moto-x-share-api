@@ -1,4 +1,4 @@
-﻿namespace MotoXShare.Application.Domain.Enums;
+﻿namespace MotoXShare.Core.Domain.Enums;
 
 public enum CnhTypes
 {

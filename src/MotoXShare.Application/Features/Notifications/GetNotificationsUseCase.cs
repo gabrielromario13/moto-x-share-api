@@ -4,7 +4,7 @@ namespace MotoXShare.Application.Features.Notifications;
 
 public class GetNotificationUseCase(INotificationRepository repository, IDeliveryRiderRepository deliveryRiderRepository)
 {
-    public virtual async Task<GetNotificationResponseDto> Action(Guid orderId)
+    public virtual async Task<GetNotificationResponseDto> Action(int orderId)
     {
         var notification = await repository.GetSingle(r => r.OrderId == orderId);
 

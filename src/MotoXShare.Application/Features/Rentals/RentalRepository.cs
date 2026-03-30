@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MotoXShare.Application.Data.Context;
-using MotoXShare.Application.Domain.Model;
 using MotoXShare.Application.Features.Common;
+using MotoXShare.Core.Data.Context;
+using MotoXShare.Core.Domain.Entities;
 
 namespace MotoXShare.Application.Features.Rentals;
 
-public class RentalRepository(ApplicationContext context)
+public class RentalRepository(AppDbContext context)
     : RepositoryAsync<Rental>(context), IRentalRepository
 {
     public async Task<bool> CheckIfMotorcycleIsRented(Guid motorcycleId) =>

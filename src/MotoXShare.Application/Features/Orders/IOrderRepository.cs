@@ -1,5 +1,5 @@
-using MotoXShare.Application.Domain.Model;
 using MotoXShare.Application.Features.Common;
+using MotoXShare.Core.Domain.Entities;
 
 namespace MotoXShare.Application.Features.Orders;
 

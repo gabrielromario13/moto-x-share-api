@@ -18,9 +18,9 @@ public class NotificationHandler
             return null;
 
         var errors = new List<ErrorsResponseDetail>(_notifications.Count);
-        
+
         errors.AddRange(_notifications
-            .Select(notification => 
+            .Select(notification =>
                 new ErrorsResponseDetail(notification.Error, notification.Detail)));
 
         return new(instance, traceId, errors);

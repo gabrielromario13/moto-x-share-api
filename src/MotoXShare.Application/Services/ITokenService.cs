@@ -1,4 +1,4 @@
-﻿using MotoXShare.Application.Domain.Model;
+﻿using MotoXShare.Core.Domain.Entities;
 
 namespace MotoXShare.Application.Services;
 

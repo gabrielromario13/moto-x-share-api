@@ -1,4 +1,3 @@
-using System.Text;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -6,12 +5,13 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MotoXShare.API.Filters;
 using MotoXShare.Application;
-using MotoXShare.Application.Features.DeliveryRiders;
+using MotoXShare.Core.Application.Commands.DeliveryRiderCommand;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddValidatorsFromAssemblyContaining<SaveDeliveryRiderValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateDeliveryRiderCommandValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>

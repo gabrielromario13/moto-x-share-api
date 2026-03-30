@@ -6,8 +6,8 @@ namespace MotoXShare.Application.Features.Notifications;
 public class GetNotificationInteractor(
     EntityFrameworkUnitOfWorkAsync unitOfWork,
     GetNotificationUseCase getNotificationUseCase
-) : InteractorAsync<GetNotificationResponseDto, Guid>(unitOfWork), IGetNotificationInteractor
+) : InteractorAsync<GetNotificationResponseDto, int>(unitOfWork), IGetNotificationInteractor
 {
-    protected override async Task<GetNotificationResponseDto> Action(Guid param) =>
+    protected override async Task<GetNotificationResponseDto> Action(int param) =>
         await getNotificationUseCase.Action(param);
 }

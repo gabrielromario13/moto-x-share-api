@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
-using MotoXShare.Application.Domain.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using MotoXShare.Core.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace MotoXShare.Application.Features.Common;
 
@@ -47,8 +47,8 @@ public class RepositoryAsync<T>
 
         if (includeProperties is null)
             return await query.FirstOrDefaultAsync();
-        
-        query = includeProperties.Aggregate(query, 
+
+        query = includeProperties.Aggregate(query,
             (current, property) => current.Include(property));
 
         return await query.FirstOrDefaultAsync();
@@ -66,7 +66,7 @@ public class RepositoryAsync<T>
 
         if (includeProperties is null)
             return await query.ToListAsync();
-        
+
         query = includeProperties.Aggregate(query,
             (current, property) => current.Include(property));
 
