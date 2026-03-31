@@ -13,7 +13,7 @@ public class CreateMotorcycleCommandHandler(AppDbContext context)
     {
         var motorcycle = request.ToEntity();
 
-        await context.Motorcycles.AddAsync(motorcycle);
+        await context.Motorcycles.AddAsync(motorcycle, token);
         context.SaveChanges();
 
         return ResultViewModel<int>.Success(motorcycle.Id);
