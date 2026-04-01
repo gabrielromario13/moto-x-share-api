@@ -1,21 +1,23 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MotoXShare.Application.Features.Users;
+using MotoXShare.Core.Application.Commands.AuthenticateUserCommands;
+using MotoXShare.Core.Application.Models.ViewModels;
 
 namespace MotoXShare.API.Controllers;
 
 [AllowAnonymous]
 [Route("api/[controller]")]
 [ApiController]
-public class LoginController(IAuthenticateUserInteractor authenticateUserInteractor) : ControllerBase
+public class LoginController(IMediator mediator) : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(GetUserResponseDto), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Authenticate(AuthenticateUserDto param)
+    [ProducesResponseType(typeof(AuthenticateUserViewModel), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Authenticate(AuthenticateUserCommand command)
     {
-        var result = await authenticateUserInteractor.Execute(param);
+        var result = await mediator.Send(command);
 
-        return result == default ? NotFound() : Ok(result);
+        return result.IsSuccess ? NotFound() : Ok(result);
     }
 }

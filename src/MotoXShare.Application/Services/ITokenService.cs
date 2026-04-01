@@ -1,6 +1,6 @@
 ﻿using MotoXShare.Core.Domain.Entities;
 
-namespace MotoXShare.Application.Services;
+namespace MotoXShare.Core.Services;
 
 public interface ITokenService
 {

@@ -1,33 +1,31 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MotoXShare.Application.Features.DeliveryRiders;
+using MotoXShare.Core.Application.Commands.DeliveryRiderCommands;
 
 namespace MotoXShare.API.Controllers;
 
 [Authorize(Roles = "Admin, DeliveryRider")]
 [ApiController]
 [Route("api/v1/[controller]")]
-public class DeliveryRidersController(
-    ISaveDeliveryRiderInteractor saveDeliveryRiderInteractor,
-    IUpdateDeliveryRiderInteractor updateDeliveryRiderInteractor
-) : ControllerBase
+public class DeliveryRidersController(IMediator mediator) : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> Create(SaveDeliveryRiderRequestDto param)
+    public async Task<IActionResult> Create(CreateDeliveryRiderCommand command)
     {
-        var result = await saveDeliveryRiderInteractor.Execute(param);
+        var result = await mediator.Send(command);
 
-        return Created($"{Request.Path}/{result}", new { });
+        return Created($"{Request.Path}/{result.Data}", new { });
     }
 
     [HttpPatch("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateCnhImage(Guid id, IFormFile cnhImage)
+    public async Task<IActionResult> UpdateCnhImage(int id, IFormFile cnhImage)
     {
-        var result = await updateDeliveryRiderInteractor.Execute(new(id, cnhImage));
+        var result = await mediator.Send(new UpdateDeliveryRiderCommand(id, cnhImage));
 
-        return result ? NoContent() : NotFound();
+        return result.IsSuccess ? NoContent() : NotFound();
     }
 }

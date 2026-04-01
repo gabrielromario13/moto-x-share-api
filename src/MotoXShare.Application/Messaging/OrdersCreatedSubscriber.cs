@@ -1,21 +1,24 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MotoXShare.Application.Features.Notifications;
+using MotoXShare.Core.Application.Commands.DeliveryRiderNotificationCommands;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
-namespace MotoXShare.Application.Messaging;
+namespace MotoXShare.Core.Messaging;
 
 public class OrdersCreatedSubscriber : BackgroundService
 {
     private readonly IModel _channel;
     private const string QueueName = "orders-created";
-    private readonly SaveNotificationUseCase _saveNotificationUseCase;
+    private readonly IServiceProvider _serviceProvider;
 
     public OrdersCreatedSubscriber(IServiceProvider serviceProvider)
     {
+        _serviceProvider = serviceProvider;
+
         var connectionFactory = new ConnectionFactory
         {
             HostName = "localhost"
@@ -24,10 +27,10 @@ public class OrdersCreatedSubscriber : BackgroundService
         var connection = connectionFactory.CreateConnection();
         _channel = connection.CreateModel();
 
-        _channel.QueueDeclare(QueueName, false, false);
-
-        _saveNotificationUseCase = serviceProvider.CreateScope()
-            .ServiceProvider.GetRequiredService<SaveNotificationUseCase>();
+        _channel.QueueDeclare(queue: QueueName,
+                              durable: false,
+                              exclusive: false,
+                              autoDelete: false);
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -36,11 +39,18 @@ public class OrdersCreatedSubscriber : BackgroundService
 
         consumer.Received += async (sender, eventArgs) =>
         {
+            using var scope = _serviceProvider.CreateScope();
+            var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+
             var contentArray = eventArgs.Body.ToArray();
             var contentString = Encoding.UTF8.GetString(contentArray);
-            var orderId = JsonConvert.DeserializeObject<Guid>(contentString);
+            var orderId = JsonConvert.DeserializeObject<int>(contentString);
 
-            if (!await _saveNotificationUseCase.Action(orderId))
+            var command = new CreateDeliveryRiderNotificationCommand(orderId);
+
+            var result = await mediator.Send(command);
+
+            if (!result.IsSuccess)
             {
                 _channel.BasicNack(eventArgs.DeliveryTag, false, true);
                 return;
@@ -49,7 +59,9 @@ public class OrdersCreatedSubscriber : BackgroundService
             _channel.BasicAck(eventArgs.DeliveryTag, false);
         };
 
-        _channel.BasicConsume(QueueName, false, consumer);
+        _channel.BasicConsume(queue: QueueName,
+                              autoAck: false,
+                              consumer: consumer);
 
         return Task.CompletedTask;
     }

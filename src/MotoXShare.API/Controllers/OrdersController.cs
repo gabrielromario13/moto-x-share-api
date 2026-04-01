@@ -1,35 +1,33 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MotoXShare.Application.Features.Orders;
+using MotoXShare.Core.Application.Commands.OrderCommands;
 using System.ComponentModel.DataAnnotations;
 
 namespace MotoXShare.API.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class OrdersController(
-    ISaveOrderInteractor saveOrderInteractor,
-    IUpdateOrderInteractor updateOrderInteractor
-) : ControllerBase
+public class OrdersController(IMediator mediator) : ControllerBase
 {
     [Authorize(Roles = "Admin")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> Create(SaveOrderRequestDto param)
+    public async Task<IActionResult> Create(CreateOrderCommand command)
     {
-        var result = await saveOrderInteractor.Execute(param);
+        var result = await mediator.Send(command);
 
-        return Created($"{Request.Path}/{result}", new { });
+        return Created($"{Request.Path}/{result.Data}", new { });
     }
 
     [Authorize(Roles = "Admin, DeliveryRider")]
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Update(Guid id, [Required] Guid deliveryRiderId)
+    public async Task<IActionResult> Update(int id, [Required] int deliveryRiderId)
     {
-        var result = await updateOrderInteractor.Execute(new(id, deliveryRiderId));
+        var result = await mediator.Send(new UpdateOrderCommand(id, deliveryRiderId));
 
-        return result ? NoContent() : NotFound();
+        return result.IsSuccess ? NoContent() : NotFound();
     }
 }

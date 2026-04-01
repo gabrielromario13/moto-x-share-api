@@ -5,7 +5,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MotoXShare.API.Filters;
 using MotoXShare.Application;
-using MotoXShare.Core.Application.Commands.DeliveryRiderCommand;
+using MotoXShare.Core;
+using MotoXShare.Core.Application.Commands.DeliveryRiderCommands;
+using MotoXShare.Core.Application.Commands.UserCommands;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -63,6 +65,9 @@ builder.Services.AddAuthentication(x =>
         ValidateAudience = false
     };
 });
+
+builder.Services.AddMediatR(config
+    => config.RegisterServicesFromAssemblyContaining<CreateUserCommandHandler>());
 
 var app = builder.Build();
 

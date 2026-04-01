@@ -2,7 +2,14 @@
 
 namespace MotoXShare.Core.Domain.Entities;
 
-public class Rental(RentalPlanTypes planType, decimal rentalPrice, DateTime startDate, DateTime expectedEndDate, DateTime endDate) : BaseEntity
+public class Rental(
+    int motorcycleId,
+    int deliveryRiderId,
+    RentalPlanTypes planType,
+    decimal rentalPrice,
+    DateTime startDate,
+    DateTime expectedEndDate,
+    DateTime endDate) : BaseEntity
 {
     public RentalPlanTypes PlanType { get; set; } = planType;
     public decimal RentalPrice { get; set; } = rentalPrice;
@@ -10,8 +17,8 @@ public class Rental(RentalPlanTypes planType, decimal rentalPrice, DateTime star
     public DateTime ExpectedEndDate { get; set; } = expectedEndDate;
     public DateTime EndDate { get; set; } = endDate;
 
-    public Guid DeliveryRiderId { get; set; }
-    public Guid MotorcycleId { get; set; }
+    public int DeliveryRiderId { get; set; } = deliveryRiderId;
+    public int MotorcycleId { get; set; } = motorcycleId;
     public virtual DeliveryRider DeliveryRider { get; set; }
     public virtual Motorcycle Motorcycle { get; set; }
 
